@@ -93,7 +93,7 @@ export default defineCommand({
     const newLiveStreams = (await Promise.all(newLiveStreamDataPromises)).filter(Boolean)
 
     if (newLiveStreams.length <= 0) {
-      console.log('✅ all data is up-to-date')
+      console.log('✅ all data is already up to date')
       return
     }
 

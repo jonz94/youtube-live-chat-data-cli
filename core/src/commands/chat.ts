@@ -27,8 +27,9 @@ export default defineCommand({
 
     const youtube = await createInnertubeClient()
 
-    const videoUrl = `https://www.youtube.com/watch?v=${args.vid}`
-    const video = await youtube.getInfo(args.vid)
+    const videoId = args.vid
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`
+    const video = await youtube.getInfo(videoId)
 
     const {
       is_live: isLive,
@@ -40,7 +41,10 @@ export default defineCommand({
     } = video.basic_info
 
     if (isLive || isUpcoming) {
-      console.log(`🚧 skip ongoing/upcoming live streams`)
+      console.log(`🚧 skip ongoing/upcoming live streams: (${videoUrl})`)
+      console.log()
+      console.log(`\t${title}`)
+      console.log()
 
       return
     }
@@ -192,7 +196,7 @@ export default defineCommand({
       const records = Array.from(newAuthors.values())
 
       if (records.length <= 0) {
-        console.log('✅ all data is up-to-date')
+        console.log('✅ all data is already up to date')
         return
       }
 
