@@ -1,0 +1,34 @@
+{
+  "name": "kuromu-live-chat-data",
+  "version": "1.0.0",
+  "description": "Fetch live chat data",
+  "type": "module",
+  "module": "./src/index.ts",
+  "scripts": {
+    "db-generate": "drizzle-kit generate",
+    "db-migrate-dev": "cross-env NODE_ENV=development tsx ./scripts/db-migrate.ts",
+    "db-push-dev": "cross-env NODE_ENV=development tsx ./scripts/db-push.ts",
+    "fmt": "prettier --write .",
+    "postinstall": "tsx scripts/build-youtubei.ts",
+    "start": "tsx ./src/index.ts",
+    "start-dev": "cross-env NODE_ENV=development tsx ./src/index.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.6.2",
+    "citty": "^0.1.6",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.31.2",
+    "youtubei.js": "../YouTube.js"
+  },
+  "devDependencies": {
+    "@total-typescript/ts-reset": "^0.5.1",
+    "@types/node": "^20.14.8",
+    "cross-env": "^7.0.3",
+    "drizzle-kit": "^0.22.7",
+    "prettier": "^3.3.2",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-packagejson": "^2.5.0",
+    "tsx": "^4.15.7",
+    "typescript": "~5.5.2"
+  }
+}

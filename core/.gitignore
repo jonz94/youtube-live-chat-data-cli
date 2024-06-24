@@ -1,0 +1,10 @@
+.DS_Store
+.cache/
+node_modules/
+
+# environment files
+.env*
+!.env.example
+
+# local database
+*.sqlite3

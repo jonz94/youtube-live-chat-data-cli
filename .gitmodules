@@ -1,0 +1,4 @@
+[submodule "YouTube.js"]
+	path = YouTube.js
+	url = git@github.com:jonz94/YouTube.js.git
+	branch = wip
