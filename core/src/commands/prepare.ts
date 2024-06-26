@@ -4,8 +4,7 @@ import { createInnertubeClient, getChannelId, getVideoIdsOfAllPublicLiveStreams 
 
 export default defineCommand({
   meta: {
-    name: 'authors',
-    description: 'Fetch all live chat authors data from a YouTube live stream.',
+    name: 'prepare',
   },
   args: {
     cid: {
@@ -19,7 +18,7 @@ export default defineCommand({
 
     const channelId = await getChannelId(youtube, args.cid)
 
-    const allPublicLiveStreamIds = await getVideoIdsOfAllPublicLiveStreams(youtube, channelId)
+    const allPublicLiveStreamIds = await getVideoIdsOfAllPublicLiveStreams(youtube, channelId, 'fromOldestToLatest')
 
     for (const videoId of allPublicLiveStreamIds) {
       if (isProduction()) {

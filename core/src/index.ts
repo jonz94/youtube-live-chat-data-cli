@@ -13,7 +13,7 @@ const main = defineCommand({
     logout: import('./commands/logout').then((mod) => mod.default),
     bot: import('./commands/bot').then((mod) => mod.default),
     videos: import('./commands/videos').then((mod) => mod.default),
-    authors: import('./commands/authors').then((mod) => mod.default),
+    prepare: import('./commands/prepare').then((mod) => mod.default),
     chat: import('./commands/chat').then((mod) => mod.default),
   },
 })

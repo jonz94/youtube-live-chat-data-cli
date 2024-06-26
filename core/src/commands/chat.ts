@@ -1,8 +1,221 @@
 import { defineCommand } from 'citty'
 import { YTNodes } from 'youtubei.js'
 import { db } from '../../db/db'
-import { authors, type InsertAuthor } from '../../db/schema'
+import {
+  rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
+  rawLiveChatSponsorshipsGiftRedemptionAnnouncement,
+  rawMembershipItem,
+  rawPaidMessage,
+  rawPaidSticker,
+  rawTextMessage,
+  users,
+} from '../../db/schema'
 import { createInnertubeClient } from '../utils'
+
+async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayChatItemAction, videoId: string) {
+  for (const action of replayChatItemAction.actions) {
+    switch (action.type) {
+      case YTNodes.AddChatItemAction.type:
+        const addChatItemAction = action.as(YTNodes.AddChatItemAction)
+        const item = addChatItemAction.item
+
+        switch (item.type) {
+          case YTNodes.LiveChatTextMessage.type: {
+            const liveChatTextMessage = item.as(YTNodes.LiveChatTextMessage)
+
+            const { id, name } = liveChatTextMessage.author
+
+            await Promise.all([
+              db.insert(users).values({ id, name }).onConflictDoNothing(),
+
+              db
+                .insert(rawTextMessage)
+                .values({
+                  id: liveChatTextMessage.id,
+                  userId: id,
+                  videoId,
+                  timestamp: liveChatTextMessage.timestamp,
+                  videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
+                  jsonMessage: JSON.stringify(liveChatTextMessage.message),
+                })
+                .onConflictDoNothing(),
+            ])
+
+            break
+          }
+
+          case YTNodes.LiveChatMembershipItem.type: {
+            const liveChatMembershipItem = item.as(YTNodes.LiveChatMembershipItem)
+
+            const { id, name } = liveChatMembershipItem.author
+
+            await Promise.all([
+              db.insert(users).values({ id, name }).onConflictDoNothing(),
+
+              db
+                .insert(rawMembershipItem)
+                .values({
+                  id: liveChatMembershipItem.id,
+                  userId: id,
+                  videoId,
+                  timestamp: liveChatMembershipItem.timestamp,
+                  videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
+                  headerPrimaryText: liveChatMembershipItem.header_primary_text.toString(),
+                  headerSubtext: liveChatMembershipItem.header_subtext.toString(),
+                  jsonMessage: JSON.stringify(liveChatMembershipItem.message),
+                })
+                .onConflictDoNothing(),
+            ])
+
+            break
+          }
+
+          case YTNodes.LiveChatPaidMessage.type: {
+            const liveChatPaidMessage = item.as(YTNodes.LiveChatPaidMessage)
+
+            const { id, name } = liveChatPaidMessage.author
+
+            await Promise.all([
+              db.insert(users).values({ id, name }).onConflictDoNothing(),
+
+              db
+                .insert(rawPaidMessage)
+                .values({
+                  id: liveChatPaidMessage.id,
+                  userId: id,
+                  videoId,
+                  timestamp: liveChatPaidMessage.timestamp,
+                  videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
+
+                  headerBackgroundColor: liveChatPaidMessage.header_background_color,
+                  headerTextColor: liveChatPaidMessage.header_text_color,
+                  bodyBackgroundColor: liveChatPaidMessage.body_background_color,
+                  bodyTextColor: liveChatPaidMessage.body_text_color,
+
+                  purchaseAmount: liveChatPaidMessage.purchase_amount,
+                  jsonMessage: JSON.stringify(liveChatPaidMessage.message),
+                })
+                .onConflictDoNothing(),
+            ])
+
+            break
+          }
+
+          case YTNodes.LiveChatPaidSticker.type: {
+            const liveChatPaidSticker = item.as(YTNodes.LiveChatPaidSticker)
+
+            const { id, name } = liveChatPaidSticker.author
+
+            await Promise.all([
+              db.insert(users).values({ id, name }).onConflictDoNothing(),
+
+              db
+                .insert(rawPaidSticker)
+                .values({
+                  id: liveChatPaidSticker.id,
+                  userId: id,
+                  videoId,
+                  timestamp: liveChatPaidSticker.timestamp,
+                  videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
+
+                  moneyChipBackgroundColor: liveChatPaidSticker.money_chip_background_color,
+                  moneyChipTextColor: liveChatPaidSticker.money_chip_text_color,
+                  backgroundColor: liveChatPaidSticker.background_color,
+                  authorNameTextColor: liveChatPaidSticker.author_name_text_color,
+
+                  purchaseAmount: liveChatPaidSticker.purchase_amount,
+                  jsonSticker: JSON.stringify(liveChatPaidSticker.sticker),
+                })
+                .onConflictDoNothing(),
+            ])
+
+            break
+          }
+
+          case YTNodes.LiveChatSponsorshipsGiftPurchaseAnnouncement.type: {
+            const liveChatSponsorshipsGiftPurchaseAnnouncement = item.as(
+              YTNodes.LiveChatSponsorshipsGiftPurchaseAnnouncement,
+            )
+
+            const { header } = liveChatSponsorshipsGiftPurchaseAnnouncement
+
+            if (!header) {
+              break
+            }
+
+            const id = liveChatSponsorshipsGiftPurchaseAnnouncement.author_external_channel_id
+            const name = header.author_name.toString()
+
+            await Promise.all([
+              db.insert(users).values({ id, name }).onConflictDoNothing(),
+
+              db
+                .insert(rawLiveChatSponsorshipsGiftPurchaseAnnouncement)
+                .values({
+                  id: liveChatSponsorshipsGiftPurchaseAnnouncement.id,
+                  userId: id,
+                  videoId,
+                  timestampUsec: liveChatSponsorshipsGiftPurchaseAnnouncement.timestamp_usec,
+                  videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
+
+                  headerPrimaryText: header.primary_text.toString(),
+                })
+                .onConflictDoNothing(),
+            ])
+
+            break
+          }
+
+          case YTNodes.LiveChatSponsorshipsGiftRedemptionAnnouncement.type: {
+            const liveChatSponsorshipsGiftRedemptionAnnouncement = item.as(
+              YTNodes.LiveChatSponsorshipsGiftRedemptionAnnouncement,
+            )
+
+            const id = liveChatSponsorshipsGiftRedemptionAnnouncement.author_external_channel_id
+            const name = liveChatSponsorshipsGiftRedemptionAnnouncement.author_name.toString()
+
+            await Promise.all([
+              db.insert(users).values({ id, name }).onConflictDoNothing(),
+
+              db
+                .insert(rawLiveChatSponsorshipsGiftRedemptionAnnouncement)
+                .values({
+                  id: liveChatSponsorshipsGiftRedemptionAnnouncement.id,
+                  userId: id,
+                  videoId,
+                  timestampUsec: liveChatSponsorshipsGiftRedemptionAnnouncement.timestamp_usec,
+                  videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
+
+                  jsonMessage: JSON.stringify(liveChatSponsorshipsGiftRedemptionAnnouncement.message),
+                })
+                .onConflictDoNothing(),
+            ])
+
+            break
+          }
+
+          case YTNodes.LiveChatViewerEngagementMessage.type:
+            // do nothing
+            break
+
+          default:
+            console.log(`🚧 [${YTNodes.LiveChatTextMessage.type}] ${item.type}`)
+            break
+        }
+        break
+
+      case YTNodes.AddLiveChatTickerItemAction.type:
+      case YTNodes.AddBannerToLiveChatCommand.type:
+      case YTNodes.RemoveBannerForLiveChatCommand.type:
+        // not implement yet
+        break
+
+      default:
+        console.log(`🚧 [${YTNodes.AddChatItemAction.type}] ${action.type}`)
+        break
+    }
+  }
+}
 
 export default defineCommand({
   meta: {
@@ -21,10 +234,6 @@ export default defineCommand({
     },
   },
   run: async ({ args }) => {
-    const existingAuthorIds = new Set((await db.select({ id: authors.id }).from(authors)).map((author) => author.id))
-
-    const newAuthors = new Map<InsertAuthor['id'], InsertAuthor>()
-
     const youtube = await createInnertubeClient()
 
     const videoId = args.vid
@@ -75,49 +284,10 @@ export default defineCommand({
       initialData.actions.forEach((chatAction) => {
         switch (chatAction.type) {
           case YTNodes.ReplayChatItemAction.type:
-            chatAction.as(YTNodes.ReplayChatItemAction).actions.forEach((action) => {
-              switch (action.type) {
-                case YTNodes.AddChatItemAction.type:
-                  const item = action.as(YTNodes.AddChatItemAction).item
-                  switch (item.type) {
-                    case YTNodes.LiveChatTextMessage.type:
-                      const { id, name } = item.as(YTNodes.LiveChatTextMessage).author
+            const replayChatItemAction = chatAction.as(YTNodes.ReplayChatItemAction)
 
-                      // chatAction.as(YTNodes.ReplayChatItemAction).video_offset_time_msec
+            parseReplayChatItemAction(replayChatItemAction, videoId)
 
-                      if (!existingAuthorIds.has(id)) {
-                        existingAuthorIds.add(id)
-
-                        newAuthors.set(id, { id, name })
-                      }
-                      break
-
-                    case YTNodes.LiveChatMembershipItem.type:
-                    case YTNodes.LiveChatPaidMessage.type:
-                    case YTNodes.LiveChatPaidSticker.type:
-                    case YTNodes.LiveChatSponsorshipsGiftPurchaseAnnouncement.type:
-                    case YTNodes.LiveChatSponsorshipsGiftRedemptionAnnouncement.type:
-                    case YTNodes.LiveChatViewerEngagementMessage.type:
-                      // not implement yet
-                      break
-
-                    default:
-                      console.log(`🚧 [${YTNodes.LiveChatTextMessage.type}] ${item.type}`)
-                      break
-                  }
-                  break
-
-                case YTNodes.AddLiveChatTickerItemAction.type:
-                case YTNodes.AddBannerToLiveChatCommand.type:
-                case YTNodes.RemoveBannerForLiveChatCommand.type:
-                  // not implement yet
-                  break
-
-                default:
-                  console.log(`🚧 [${YTNodes.AddChatItemAction.type}] ${action.type}`)
-                  break
-              }
-            })
             break
 
           default:
@@ -134,54 +304,12 @@ export default defineCommand({
     })
 
     livechat.on('chat-update', async (chatAction) => {
-      // console.log(JSON.stringify(chatAction, null, 2))
-
       switch (chatAction.type) {
         case YTNodes.ReplayChatItemAction.type:
-          chatAction.as(YTNodes.ReplayChatItemAction).actions.forEach((action) => {
-            switch (action.type) {
-              case YTNodes.AddChatItemAction.type:
-                const item = action.as(YTNodes.AddChatItemAction).item
-                switch (item.type) {
-                  case YTNodes.LiveChatTextMessage.type: {
-                    const { id, name } = item.as(YTNodes.LiveChatTextMessage).author
+          const replayChatItemAction = chatAction.as(YTNodes.ReplayChatItemAction)
 
-                    // chatAction.as(YTNodes.ReplayChatItemAction).video_offset_time_msec
+          parseReplayChatItemAction(replayChatItemAction, videoId)
 
-                    if (!existingAuthorIds.has(id)) {
-                      existingAuthorIds.add(id)
-
-                      newAuthors.set(id, { id, name })
-                    }
-                    break
-                  }
-
-                  case YTNodes.LiveChatMembershipItem.type:
-                  case YTNodes.LiveChatPaidMessage.type:
-                  case YTNodes.LiveChatPaidSticker.type:
-                  case YTNodes.LiveChatSponsorshipsGiftPurchaseAnnouncement.type:
-                  case YTNodes.LiveChatSponsorshipsGiftRedemptionAnnouncement.type:
-                  case YTNodes.LiveChatViewerEngagementMessage.type:
-                    // not implement yet
-                    break
-
-                  default:
-                    console.log(`🚧 [${YTNodes.LiveChatTextMessage.type}] ${item.type}`)
-                    break
-                }
-                break
-
-              case YTNodes.AddLiveChatTickerItemAction.type:
-              case YTNodes.AddBannerToLiveChatCommand.type:
-              case YTNodes.RemoveBannerForLiveChatCommand.type:
-                // not implement yet
-                break
-
-              default:
-                console.log(`🚧 [${YTNodes.AddChatItemAction.type}] ${action.type}`)
-                break
-            }
-          })
           break
 
         default:
@@ -192,24 +320,6 @@ export default defineCommand({
 
     livechat.on('end', async () => {
       livechat.stop()
-
-      const records = Array.from(newAuthors.values())
-
-      if (records.length <= 0) {
-        console.log('✅ all data is already up to date')
-        return
-      }
-
-      await db.insert(authors).values(records)
-
-      if (args.verbose) {
-        console.log(`✨ added new ${records.length} authors:`)
-        console.log(JSON.stringify(records, null, 2))
-        console.log()
-      } else {
-        console.log(`✨ added new ${records.length} authors`)
-        console.log()
-      }
 
       console.log('✅ successfully fetched data from video')
     })

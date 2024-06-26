@@ -84,9 +84,9 @@ export default defineCommand({
         return
       }
 
-      const authorName = bannerMessage.replace(KEYWORDS, '')
+      const name = bannerMessage.replace(KEYWORDS, '')
 
-      await livechat.sendMessage(`歡迎「${authorName}」醬肉～`)
+      await livechat.sendMessage(`歡迎「${name}」醬肉～`)
     })
 
     livechat.start()

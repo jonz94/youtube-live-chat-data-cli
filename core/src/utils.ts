@@ -17,7 +17,11 @@ export async function getChannelId(youtube: Innertube, id: string) {
   return (navigationEndpoint.toURL() ?? '').replace('https://www.youtube.com/channel/', '')
 }
 
-export async function getVideoIdsOfAllPublicLiveStreams(youtube: Innertube, channelId: string) {
+export async function getVideoIdsOfAllPublicLiveStreams(
+  youtube: Innertube,
+  channelId: string,
+  order: 'fromLatestToOldest' | 'fromOldestToLatest',
+) {
   const allPublicLiveStreamsPlaylistId = channelId.replace(/^UC/, 'UULV')
 
   let playlist = await youtube.getPlaylist(allPublicLiveStreamsPlaylistId)
@@ -30,7 +34,7 @@ export async function getVideoIdsOfAllPublicLiveStreams(youtube: Innertube, chan
     videoIds = videoIds.concat(playlist.items.map((item) => item.id))
   }
 
-  return videoIds
+  return order === 'fromLatestToOldest' ? videoIds : videoIds.toReversed()
 }
 
 export async function getVideoInfo(youtube: Innertube, videoId: string) {
@@ -44,6 +48,6 @@ export async function getVideoInfo(youtube: Innertube, videoId: string) {
     title,
     startTimestamp: start_timestamp?.toISOString(),
     endTimestamp: end_timestamp?.toISOString(),
-    duration: String(duration),
+    duration,
   }
 }

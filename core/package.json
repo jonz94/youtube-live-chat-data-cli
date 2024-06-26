@@ -6,6 +6,7 @@
   "module": "./src/index.ts",
   "scripts": {
     "db-generate": "drizzle-kit generate",
+    "db-generate-dev": "cross-env NODE_ENV=development tsx ./scripts/db-generate.ts",
     "db-migrate-dev": "cross-env NODE_ENV=development tsx ./scripts/db-migrate.ts",
     "db-push-dev": "cross-env NODE_ENV=development tsx ./scripts/db-push.ts",
     "fmt": "prettier --write .",
