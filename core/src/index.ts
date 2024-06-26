@@ -15,6 +15,7 @@ const main = defineCommand({
     videos: import('./commands/videos').then((mod) => mod.default),
     prepare: import('./commands/prepare').then((mod) => mod.default),
     chat: import('./commands/chat').then((mod) => mod.default),
+    count: import('./commands/count').then((mod) => mod.default),
   },
 })
 
