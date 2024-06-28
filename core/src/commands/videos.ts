@@ -1,5 +1,4 @@
 import { defineCommand } from 'citty'
-import { inArray } from 'drizzle-orm'
 import { db } from '../../db/db'
 import { videos } from '../../db/schema'
 import { createInnertubeClient, getChannelId, getVideoIdsOfAllPublicLiveStreams, getVideoInfo } from '../utils'
@@ -23,10 +22,7 @@ export default defineCommand({
 
     const allPublicLiveStreamIds = await getVideoIdsOfAllPublicLiveStreams(youtube, channelId, 'fromOldestToLatest')
 
-    const existingLiveStreams = await db
-      .select({ id: videos.id })
-      .from(videos)
-      .where(inArray(videos.id, allPublicLiveStreamIds))
+    const existingLiveStreams = await db.select({ id: videos.id }).from(videos)
 
     const existingLiveStreamIds = existingLiveStreams.map((liveStream) => liveStream.id)
 
