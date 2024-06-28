@@ -56,3 +56,13 @@ export async function getVideoInfo(youtube: Innertube, videoId: string) {
     duration,
   }
 }
+
+export async function getChannel(youtube: Innertube, channelId: string) {
+  try {
+    return await youtube.getChannel(channelId)
+  } catch (error) {
+    console.log('channel id:', channelId)
+    console.log(error)
+    return null
+  }
+}

@@ -15,6 +15,12 @@ export const users = sqliteTable('users', {
 
 export type InsertUser = typeof users.$inferInsert
 
+export const channels = sqliteTable('channels', {
+  id: text('id').notNull().primaryKey(),
+  name: text('name'),
+  thumbnailUrl: text('thumbnail_url'),
+})
+
 export const rawTextMessage = sqliteTable('raw_text_message', {
   id: text('id').notNull().primaryKey(),
   videoId: text('video_id').notNull(),

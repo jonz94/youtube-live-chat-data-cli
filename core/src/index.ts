@@ -17,6 +17,7 @@ const main = defineCommand({
     chat: import('./commands/chat').then((mod) => mod.default),
     count: import('./commands/count').then((mod) => mod.default),
     check: import('./commands/check').then((mod) => mod.default),
+    channel: import('./commands/channel').then((mod) => mod.default),
   },
 })
 
