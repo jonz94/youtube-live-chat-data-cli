@@ -1,8 +1,9 @@
 import { execSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { getDirname } from '../src/utils'
 
-const youtubeiProjectRoot = resolve(import.meta.dirname, '..', '..', 'YouTube.js')
+const youtubeiProjectRoot = resolve(getDirname(), '..', '..', 'YouTube.js')
 
 const hasYoutubeiBuild = existsSync(resolve(youtubeiProjectRoot, 'dist'))
 
