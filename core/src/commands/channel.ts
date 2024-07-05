@@ -4,6 +4,55 @@ import { db } from '../../db/db'
 import { channels, users } from '../../db/schema'
 import { createInnertubeClient, getChannel, getChannelId } from '../utils'
 
+async function parseHeader(
+  header: YTNodes.C4TabbedHeader | YTNodes.CarouselHeader | YTNodes.InteractiveTabbedHeader | YTNodes.PageHeader,
+  channelId: string,
+) {
+  if (header.is(YTNodes.C4TabbedHeader)) {
+    await db
+      .insert(channels)
+      .values({
+        id: channelId,
+        name: header.author.name,
+        thumbnailUrl: header.author.best_thumbnail?.url,
+      })
+      .onConflictDoNothing()
+  } else if (header.is(YTNodes.PageHeader)) {
+    const image = header.content?.image
+
+    if (!image) {
+      await db
+        .insert(channels)
+        .values({
+          id: channelId,
+          name: header.page_title,
+        })
+        .onConflictDoNothing()
+    } else if (image.is(YTNodes.DecoratedAvatarView)) {
+      await db
+        .insert(channels)
+        .values({
+          id: channelId,
+          name: header.page_title,
+          thumbnailUrl: image.avatar?.image.at(0)?.url,
+        })
+        .onConflictDoNothing()
+    } else {
+      await db
+        .insert(channels)
+        .values({
+          id: channelId,
+          name: header.page_title,
+          thumbnailUrl: image.image.at(0)?.url,
+        })
+        .onConflictDoNothing()
+    }
+  } else {
+    console.log('new header type:', header.type)
+    console.log(JSON.stringify(header, null, 2))
+  }
+}
+
 export default defineCommand({
   meta: {
     name: 'channel',
@@ -34,18 +83,7 @@ export default defineCommand({
         return
       }
 
-      if (header.is(YTNodes.C4TabbedHeader)) {
-        await db
-          .insert(channels)
-          .values({
-            id: channelId,
-            name: header.author.name,
-            thumbnailUrl: header.author.best_thumbnail?.url,
-          })
-          .onConflictDoNothing()
-      } else {
-        console.log('new header type:', header.type)
-      }
+      await parseHeader(header, channelId)
 
       return
     }
@@ -76,18 +114,7 @@ export default defineCommand({
         continue
       }
 
-      if (header.is(YTNodes.C4TabbedHeader)) {
-        await db
-          .insert(channels)
-          .values({
-            id: userId,
-            name: header.author.name,
-            thumbnailUrl: header.author.best_thumbnail?.url,
-          })
-          .onConflictDoNothing()
-      } else {
-        console.log('new header type:', header.type)
-      }
+      await parseHeader(header, userId)
     }
   },
 })
