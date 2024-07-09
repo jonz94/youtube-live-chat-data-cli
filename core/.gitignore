@@ -8,3 +8,7 @@ node_modules/
 
 # local database
 *.sqlite3
+
+# output json
+outputs/
+outputs.zip

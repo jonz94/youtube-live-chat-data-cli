@@ -6,6 +6,10 @@ export function getDirname() {
   return import.meta.dirname ?? dirname(fileURLToPath(import.meta.url))
 }
 
+export function getProjectRoot() {
+  return dirname(getDirname())
+}
+
 export async function createInnertubeClient() {
   return await Innertube.create({
     cache: new UniversalCache(true, resolve(getDirname(), '..', '.cache')),

@@ -18,6 +18,7 @@ const main = defineCommand({
     count: import('./commands/count').then((mod) => mod.default),
     check: import('./commands/check').then((mod) => mod.default),
     channel: import('./commands/channel').then((mod) => mod.default),
+    json: import('./commands/json').then((mod) => mod.default),
   },
 })
 
