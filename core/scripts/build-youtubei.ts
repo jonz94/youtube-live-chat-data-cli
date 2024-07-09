@@ -1,7 +1,11 @@
 import { execSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
-import { resolve } from 'node:path'
-import { getDirname } from '../src/utils'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+export function getDirname() {
+  return import.meta.dirname ?? dirname(fileURLToPath(import.meta.url))
+}
 
 const youtubeiProjectRoot = resolve(getDirname(), '..', '..', 'YouTube.js')
 
