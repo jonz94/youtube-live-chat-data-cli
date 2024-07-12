@@ -15,21 +15,21 @@
     "start-dev": "cross-env NODE_ENV=development tsx ./src/index.ts"
   },
   "dependencies": {
-    "@libsql/client": "^0.6.2",
+    "@libsql/client": "^0.7.0",
     "citty": "^0.1.6",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.31.2",
+    "drizzle-orm": "^0.32.0",
     "youtubei.js": "../YouTube.js"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/node": "^20.14.8",
+    "@types/node": "^20.14.10",
     "cross-env": "^7.0.3",
-    "drizzle-kit": "^0.22.7",
+    "drizzle-kit": "^0.23.0",
     "prettier": "^3.3.2",
-    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-packagejson": "^2.5.0",
-    "tsx": "^4.15.7",
-    "typescript": "~5.5.2"
+    "tsx": "^4.16.2",
+    "typescript": "~5.5.3"
   }
 }
