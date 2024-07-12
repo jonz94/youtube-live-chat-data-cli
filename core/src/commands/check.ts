@@ -6,7 +6,7 @@ import { createInnertubeClient, getVideoInfo } from '../utils'
 export default defineCommand({
   meta: {
     name: 'check',
-    description: 'Check database',
+    description: 'Check database.',
   },
   run: async () => {
     const allVideoIds = (await db.select({ videoId: videos.id }).from(videos)).map((video) => video.videoId)

@@ -5,6 +5,7 @@ import { createInnertubeClient, getChannelId, getVideoIdsOfAllPublicLiveStreams 
 export default defineCommand({
   meta: {
     name: 'prepare',
+    description: 'Generate chat commands for later use.',
   },
   args: {
     cid: {
