@@ -29,10 +29,7 @@ export default defineCommand({
     const videoOutputPath = resolve(outputDir, 'videos.json')
     writeFileSync(videoOutputPath, JSON.stringify(videoData), 'utf-8')
 
-    // channels
     const channelData = await db.select().from(channels)
-    const channelOutputPath = resolve(outputDir, 'channels.json')
-    writeFileSync(channelOutputPath, JSON.stringify(channelData), 'utf-8')
 
     const total = channelData.length
     let count = 0
@@ -45,11 +42,6 @@ export default defineCommand({
 
       const userOutputDir = resolve(getProjectRoot(), 'outputs', userId)
       mkdirSync(userOutputDir, { recursive: true })
-
-      // channel
-      const userChannelOutputPath = resolve(userOutputDir, 'channel.json')
-
-      writeFileSync(userChannelOutputPath, JSON.stringify(channel), 'utf-8')
 
       // raw text message
       const rawTextMessageData = await db
