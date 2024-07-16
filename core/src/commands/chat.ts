@@ -12,6 +12,10 @@ import {
 } from '../../db/schema'
 import { createInnertubeClient } from '../utils'
 
+function convertTimestampUsec2timestamp(timestampUsec: string) {
+  return Number(timestampUsec.slice(0, -3))
+}
+
 async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayChatItemAction, videoId: string) {
   for (const action of replayChatItemAction.actions) {
     switch (action.type) {
@@ -24,9 +28,10 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const liveChatTextMessage = item.as(YTNodes.LiveChatTextMessage)
 
             const { id, name } = liveChatTextMessage.author
+            const timestamp = liveChatTextMessage.timestamp
 
             await Promise.all([
-              db.insert(users).values({ id, name }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
 
               db
                 .insert(rawTextMessage)
@@ -34,7 +39,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   id: liveChatTextMessage.id,
                   userId: id,
                   videoId,
-                  timestamp: liveChatTextMessage.timestamp,
+                  timestamp,
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
                   jsonMessage: JSON.stringify(liveChatTextMessage.message),
                 })
@@ -48,9 +53,10 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const liveChatMembershipItem = item.as(YTNodes.LiveChatMembershipItem)
 
             const { id, name } = liveChatMembershipItem.author
+            const timestamp = liveChatMembershipItem.timestamp
 
             await Promise.all([
-              db.insert(users).values({ id, name }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
 
               db
                 .insert(rawMembershipItem)
@@ -58,7 +64,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   id: liveChatMembershipItem.id,
                   userId: id,
                   videoId,
-                  timestamp: liveChatMembershipItem.timestamp,
+                  timestamp,
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
                   headerPrimaryText: liveChatMembershipItem.header_primary_text.toString(),
                   headerSubtext: liveChatMembershipItem.header_subtext.toString(),
@@ -74,9 +80,10 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const liveChatPaidMessage = item.as(YTNodes.LiveChatPaidMessage)
 
             const { id, name } = liveChatPaidMessage.author
+            const timestamp = liveChatPaidMessage.timestamp
 
             await Promise.all([
-              db.insert(users).values({ id, name }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
 
               db
                 .insert(rawPaidMessage)
@@ -84,7 +91,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   id: liveChatPaidMessage.id,
                   userId: id,
                   videoId,
-                  timestamp: liveChatPaidMessage.timestamp,
+                  timestamp,
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
 
                   headerBackgroundColor: liveChatPaidMessage.header_background_color,
@@ -105,9 +112,10 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const liveChatPaidSticker = item.as(YTNodes.LiveChatPaidSticker)
 
             const { id, name } = liveChatPaidSticker.author
+            const timestamp = liveChatPaidSticker.timestamp
 
             await Promise.all([
-              db.insert(users).values({ id, name }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
 
               db
                 .insert(rawPaidSticker)
@@ -115,7 +123,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   id: liveChatPaidSticker.id,
                   userId: id,
                   videoId,
-                  timestamp: liveChatPaidSticker.timestamp,
+                  timestamp,
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
 
                   moneyChipBackgroundColor: liveChatPaidSticker.money_chip_background_color,
@@ -145,9 +153,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             const id = liveChatSponsorshipsGiftPurchaseAnnouncement.author_external_channel_id
             const name = header.author_name.toString()
+            const timestamp = convertTimestampUsec2timestamp(
+              liveChatSponsorshipsGiftPurchaseAnnouncement.timestamp_usec,
+            )
 
             await Promise.all([
-              db.insert(users).values({ id, name }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
 
               db
                 .insert(rawLiveChatSponsorshipsGiftPurchaseAnnouncement)
@@ -173,9 +184,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             const id = liveChatSponsorshipsGiftRedemptionAnnouncement.author_external_channel_id
             const name = liveChatSponsorshipsGiftRedemptionAnnouncement.author_name.toString()
+            const timestamp = convertTimestampUsec2timestamp(
+              liveChatSponsorshipsGiftRedemptionAnnouncement.timestamp_usec,
+            )
 
             await Promise.all([
-              db.insert(users).values({ id, name }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
 
               db
                 .insert(rawLiveChatSponsorshipsGiftRedemptionAnnouncement)

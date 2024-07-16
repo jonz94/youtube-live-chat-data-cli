@@ -4,13 +4,13 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { db } from '../../db/db'
 import {
-  channels,
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
   rawLiveChatSponsorshipsGiftRedemptionAnnouncement,
   rawMembershipItem,
   rawPaidMessage,
   rawPaidSticker,
   rawTextMessage,
+  users,
   videos,
 } from '../../db/schema'
 import { getProjectRoot } from '../utils'
@@ -29,25 +29,25 @@ export default defineCommand({
     const videoOutputPath = resolve(outputDir, 'videos.json')
     writeFileSync(videoOutputPath, JSON.stringify(videoData), 'utf-8')
 
-    const channelData = await db.select().from(channels)
+    const channelData = await db.select().from(users)
 
     const total = channelData.length
     let count = 0
 
     for (const channel of channelData) {
-      const userId = channel.id
+      const channelId = channel.channelId
 
       count++
-      console.log(`(${count}/${total}) ${userId}`)
+      console.log(`(${count}/${total}) ${channelId}`)
 
-      const userOutputDir = resolve(getProjectRoot(), 'outputs', userId)
+      const userOutputDir = resolve(getProjectRoot(), 'outputs', channelId)
       mkdirSync(userOutputDir, { recursive: true })
 
       // raw text message
       const rawTextMessageData = await db
         .select()
         .from(rawTextMessage)
-        .where(eq(rawTextMessage.userId, userId))
+        .where(eq(rawTextMessage.userId, channelId))
         .orderBy(asc(rawTextMessage.timestamp))
 
       const userRawTextMessageOutputPath = resolve(userOutputDir, 'raw-text-messages.json')
@@ -58,7 +58,7 @@ export default defineCommand({
       const rawMembershipItemData = await db
         .select()
         .from(rawMembershipItem)
-        .where(eq(rawMembershipItem.userId, userId))
+        .where(eq(rawMembershipItem.userId, channelId))
         .orderBy(asc(rawMembershipItem.timestamp))
 
       const userRawMembershipItemOutputPath = resolve(userOutputDir, 'raw-membership-items.json')
@@ -69,7 +69,7 @@ export default defineCommand({
       const rawPaidMessageData = await db
         .select()
         .from(rawPaidMessage)
-        .where(eq(rawPaidMessage.userId, userId))
+        .where(eq(rawPaidMessage.userId, channelId))
         .orderBy(asc(rawPaidMessage.timestamp))
 
       const userRawPaidMessageOutputPath = resolve(userOutputDir, 'raw-paid-messages.json')
@@ -80,7 +80,7 @@ export default defineCommand({
       const rawPaidStickerData = await db
         .select()
         .from(rawPaidSticker)
-        .where(eq(rawPaidSticker.userId, userId))
+        .where(eq(rawPaidSticker.userId, channelId))
         .orderBy(asc(rawPaidSticker.timestamp))
 
       const userRawPaidStickerOutputPath = resolve(userOutputDir, 'raw-paid-stickers.json')
@@ -91,7 +91,7 @@ export default defineCommand({
       const rawLiveChatSponsorshipsGiftPurchaseAnnouncementData = await db
         .select()
         .from(rawLiveChatSponsorshipsGiftPurchaseAnnouncement)
-        .where(eq(rawLiveChatSponsorshipsGiftPurchaseAnnouncement.userId, userId))
+        .where(eq(rawLiveChatSponsorshipsGiftPurchaseAnnouncement.userId, channelId))
         .orderBy(asc(rawLiveChatSponsorshipsGiftPurchaseAnnouncement.timestampUsec))
 
       const userLiveChatSponsorshipsGiftPurchaseAnnouncementOutputPath = resolve(
@@ -109,7 +109,7 @@ export default defineCommand({
       const rawLiveChatSponsorshipsGiftRedemptionAnnouncementData = await db
         .select()
         .from(rawLiveChatSponsorshipsGiftRedemptionAnnouncement)
-        .where(eq(rawLiveChatSponsorshipsGiftRedemptionAnnouncement.userId, userId))
+        .where(eq(rawLiveChatSponsorshipsGiftRedemptionAnnouncement.userId, channelId))
         .orderBy(asc(rawLiveChatSponsorshipsGiftRedemptionAnnouncement.timestampUsec))
 
       const userLiveChatSponsorshipsGiftRedemptionAnnouncementOutputPath = resolve(

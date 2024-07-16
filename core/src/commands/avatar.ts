@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { YTNodes } from 'youtubei.js'
 import { db } from '../../db/db'
-import { channels } from '../../db/schema'
+import { users } from '../../db/schema'
 import { createInnertubeClient, getChannel, getProjectRoot } from '../utils'
 
 async function getImageUrlFromHeader(
@@ -34,14 +34,15 @@ async function getImageUrlFromHeader(
 export default defineCommand({
   meta: {
     name: 'avatar',
-    description: 'save channel avatar into image files.',
+    description: 'save user avatar into image files.',
   },
   run: async () => {
     const outputDir = resolve(getProjectRoot(), 'outputs')
     mkdirSync(outputDir, { recursive: true })
 
-    // channels
-    const channelData = await db.select({ id: channels.id, name: channels.name }).from(channels)
+    const channelData = await db
+      .select({ id: users.channelId, name: users.name, timestamp: users.timestamp })
+      .from(users)
     const channelOutputPath = resolve(outputDir, 'channels.json')
     writeFileSync(channelOutputPath, JSON.stringify(channelData), 'utf-8')
 

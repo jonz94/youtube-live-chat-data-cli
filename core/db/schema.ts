@@ -9,17 +9,13 @@ export const videos = sqliteTable('videos', {
 })
 
 export const users = sqliteTable('users', {
-  id: text('id').notNull().primaryKey(),
+  id: integer('id').primaryKey(),
+  channelId: text('channel_id').notNull().unique(),
   name: text('name').notNull(),
+  timestamp: integer('timestamp').notNull(),
 })
 
 export type InsertUser = typeof users.$inferInsert
-
-export const channels = sqliteTable('channels', {
-  id: text('id').notNull().primaryKey(),
-  name: text('name'),
-  thumbnailUrl: text('thumbnail_url'),
-})
 
 export const rawTextMessage = sqliteTable('raw_text_message', {
   id: text('id').notNull().primaryKey(),

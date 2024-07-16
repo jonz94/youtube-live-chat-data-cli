@@ -2,7 +2,6 @@ import { defineCommand } from 'citty'
 import { Table, count } from 'drizzle-orm'
 import { db } from '../../db/db'
 import {
-  channels,
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
   rawLiveChatSponsorshipsGiftRedemptionAnnouncement,
   rawMembershipItem,
@@ -29,7 +28,6 @@ export default defineCommand({
     const [
       videosCountResult,
       usersCountResult,
-      channelsCountResult,
       rawTextMessagesCountResult,
       rawPaidMessagesCountResult,
       rawPaidStickersCountResult,
@@ -39,7 +37,6 @@ export default defineCommand({
     ] = await Promise.all([
       getCountFromDatabaseTable(videos),
       getCountFromDatabaseTable(users),
-      getCountFromDatabaseTable(channels),
       getCountFromDatabaseTable(rawTextMessage),
       getCountFromDatabaseTable(rawPaidMessage),
       getCountFromDatabaseTable(rawPaidSticker),
@@ -51,7 +48,6 @@ export default defineCommand({
     console.log({
       videosCountResult,
       usersCountResult,
-      channelsCountResult,
       rawTextMessagesCountResult,
       rawPaidMessagesCountResult,
       rawPaidStickersCountResult,
