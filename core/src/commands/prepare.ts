@@ -24,10 +24,9 @@ export default defineCommand({
     for (const videoId of allPublicLiveStreamIds) {
       if (isProduction()) {
         console.log(`pnpm run start chat --vid="${videoId}"`)
-        return
+      } else {
+        console.log(`pnpm run start-dev chat --vid="${videoId}"`)
       }
-
-      console.log(`pnpm run start-dev chat --vid="${videoId}"`)
     }
   },
 })
