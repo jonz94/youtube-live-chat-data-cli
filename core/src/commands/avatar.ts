@@ -2,9 +2,9 @@ import { defineCommand } from 'citty'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { YTNodes } from 'youtubei.js'
-import { db } from '../../db/db'
-import { users } from '../../db/schema'
-import { createInnertubeClient, getChannel, getProjectRoot } from '../utils'
+import { db } from '~/db/db'
+import { users } from '~/db/schema'
+import { createInnertubeClient, getChannel, getProjectRoot } from '~/utils'
 
 async function getImageUrlFromHeader(
   header: YTNodes.C4TabbedHeader | YTNodes.CarouselHeader | YTNodes.InteractiveTabbedHeader | YTNodes.PageHeader,

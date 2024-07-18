@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    // Path Aliases
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+      "~/env": ["./env"],
+    },
+
     // Enable latest features
     "lib": ["ESNext", "DOM"],
     "target": "ESNext",

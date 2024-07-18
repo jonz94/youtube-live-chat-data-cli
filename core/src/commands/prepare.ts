@@ -1,6 +1,6 @@
 import { defineCommand } from 'citty'
-import { isProduction } from '../../env'
-import { createInnertubeClient, getChannelId, getVideoIdsOfAllPublicLiveStreams } from '../utils'
+import { isProduction } from '~/env'
+import { createInnertubeClient, getChannelId, getVideoIdsOfAllPublicLiveStreams } from '~/utils'
 
 export default defineCommand({
   meta: {

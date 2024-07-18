@@ -1,6 +1,6 @@
 import { defineCommand } from 'citty'
 import { YTNodes } from 'youtubei.js'
-import { db } from '../../db/db'
+import { db } from '~/db/db'
 import {
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
   rawLiveChatSponsorshipsGiftRedemptionAnnouncement,
@@ -9,8 +9,8 @@ import {
   rawPaidSticker,
   rawTextMessage,
   users,
-} from '../../db/schema'
-import { createInnertubeClient } from '../utils'
+} from '~/db/schema'
+import { createInnertubeClient } from '~/utils'
 
 function convertTimestampUsec2timestamp(timestampUsec: string) {
   return Number(timestampUsec.slice(0, -3))

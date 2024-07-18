@@ -1,7 +1,7 @@
 import { defineCommand } from 'citty'
-import { db } from '../../db/db'
-import { rawTextMessage, videos } from '../../db/schema'
-import { createInnertubeClient, getVideoInfo } from '../utils'
+import { db } from '~/db/db'
+import { rawTextMessage, videos } from '~/db/schema'
+import { createInnertubeClient, getVideoInfo } from '~/utils'
 
 export default defineCommand({
   meta: {

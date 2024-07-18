@@ -1,6 +1,6 @@
 import { defineCommand } from 'citty'
 import { Table, count } from 'drizzle-orm'
-import { db } from '../../db/db'
+import { db } from '~/db/db'
 import {
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
   rawLiveChatSponsorshipsGiftRedemptionAnnouncement,
@@ -10,7 +10,7 @@ import {
   rawTextMessage,
   users,
   videos,
-} from '../../db/schema'
+} from '~/db/schema'
 
 async function getCountFromDatabaseTable(tableName: Table) {
   // credits: https://orm.drizzle.team/learn/guides/count-rows

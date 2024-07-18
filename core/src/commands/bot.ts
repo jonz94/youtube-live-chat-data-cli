@@ -1,6 +1,6 @@
 import { defineCommand } from 'citty'
 import { YTNodes } from 'youtubei.js'
-import { createInnertubeClient } from '../utils'
+import { createInnertubeClient } from '~/utils'
 
 export default defineCommand({
   meta: {

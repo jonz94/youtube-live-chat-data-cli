@@ -2,7 +2,7 @@ import { defineCommand } from 'citty'
 import { asc, eq } from 'drizzle-orm'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { db } from '../../db/db'
+import { db } from '~/db/db'
 import {
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
   rawLiveChatSponsorshipsGiftRedemptionAnnouncement,
@@ -12,8 +12,8 @@ import {
   rawTextMessage,
   users,
   videos,
-} from '../../db/schema'
-import { getProjectRoot } from '../utils'
+} from '~/db/schema'
+import { getProjectRoot } from '~/utils'
 
 export default defineCommand({
   meta: {

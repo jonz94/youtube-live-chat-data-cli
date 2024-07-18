@@ -1,5 +1,5 @@
 import { defineCommand } from 'citty'
-import { createInnertubeClient } from '../utils'
+import { createInnertubeClient } from '~/utils'
 
 export default defineCommand({
   meta: {
