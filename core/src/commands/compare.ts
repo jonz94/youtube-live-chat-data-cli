@@ -3,17 +3,6 @@ import { defineCommand } from 'citty'
 import { Table, count, inArray, notInArray } from 'drizzle-orm'
 import type { LibSQLDatabase } from 'drizzle-orm/libsql'
 import { drizzle } from 'drizzle-orm/libsql'
-import * as schema from '../../db-old/schema'
-import {
-  oldRawLiveChatSponsorshipsGiftPurchaseAnnouncement,
-  oldRawLiveChatSponsorshipsGiftRedemptionAnnouncement,
-  oldRawMembershipItem,
-  oldRawPaidMessage,
-  oldRawPaidSticker,
-  oldRawTextMessage,
-  oldUsers,
-  oldVideos,
-} from '../../db-old/schema'
 import { db } from '../../db/db'
 import {
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
@@ -25,6 +14,17 @@ import {
   users,
   videos,
 } from '../../db/schema'
+import * as schema from '../../db/schema-old'
+import {
+  oldRawLiveChatSponsorshipsGiftPurchaseAnnouncement,
+  oldRawLiveChatSponsorshipsGiftRedemptionAnnouncement,
+  oldRawMembershipItem,
+  oldRawPaidMessage,
+  oldRawPaidSticker,
+  oldRawTextMessage,
+  oldUsers,
+  oldVideos,
+} from '../../db/schema-old'
 
 export function createDatabase(config: Config) {
   const client = createClient(config)
