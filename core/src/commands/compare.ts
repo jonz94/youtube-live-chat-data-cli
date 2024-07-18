@@ -25,7 +25,6 @@ import {
   users,
   videos,
 } from '../../db/schema'
-import { difference } from '../polyfills'
 
 export function createDatabase(config: Config) {
   const client = createClient(config)
@@ -130,7 +129,7 @@ export default defineCommand({
     const userIds = (await db.select({ channelId: users.channelId }).from(users)).map((record) => record.channelId)
     const oldUserIds = (await oldDb.select({ id: oldUsers.id }).from(oldUsers)).map((record) => record.id)
 
-    const missingUserIdsSet = difference(new Set(oldUserIds), new Set(userIds))
+    const missingUserIdsSet = new Set(oldUserIds).difference(new Set(userIds))
 
     const missingUsers = await oldDb
       .select()
@@ -147,7 +146,7 @@ export default defineCommand({
     const oldRawTextMessageIds = (await oldDb.select({ id: oldRawTextMessage.id }).from(oldRawTextMessage)).map(
       (record) => record.id,
     )
-    const missingRawTextMessageIdsSet = difference(new Set(oldRawTextMessageIds), new Set(rawTextMessageIds))
+    const missingRawTextMessageIdsSet = new Set(oldRawTextMessageIds).difference(new Set(rawTextMessageIds))
 
     const missingRawTextMessages =
       missingRawTextMessageIdsSet.size <= 0
