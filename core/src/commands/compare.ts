@@ -137,7 +137,7 @@ export default defineCommand({
       .from(oldUsers)
       .where(inArray(oldUsers.id, Array.from(missingUserIdsSet)))
 
-    console.log('missingUsers')
+    console.log(`missingUsers [${missingUsers.length}]`)
     console.log(missingUsers)
     console.log()
 
@@ -157,7 +157,7 @@ export default defineCommand({
             .from(oldRawTextMessage)
             .where(inArray(oldRawTextMessage.id, Array.from(missingRawTextMessageIdsSet)))
 
-    console.log('missingRawTextMessages')
+    console.log(`missingRawTextMessages [${missingRawTextMessages.length}]`)
     console.log(missingRawTextMessages)
     console.log()
 
@@ -170,7 +170,7 @@ export default defineCommand({
       .from(oldRawPaidMessage)
       .where(notInArray(oldRawPaidMessage.id, rawPaidMessageIds))
 
-    console.log('missingRawPaidMessages')
+    console.log(`missingRawPaidMessages [${missingRawPaidMessages.length}]`)
     console.log(missingRawPaidMessages)
     console.log()
 
@@ -183,7 +183,7 @@ export default defineCommand({
       .from(oldRawPaidSticker)
       .where(notInArray(oldRawPaidSticker.id, rawPaidStickerIds))
 
-    console.log('missingRawPaidStickers')
+    console.log(`missingRawPaidStickers [${missingRawPaidStickers.length}]`)
     console.log(missingRawPaidStickers)
     console.log()
 
@@ -196,7 +196,7 @@ export default defineCommand({
       .from(oldRawMembershipItem)
       .where(notInArray(oldRawMembershipItem.id, rawMembershipItemIds))
 
-    console.log('missingRawMembershipItems')
+    console.log(`missingRawMembershipItems [${missingRawMembershipItems.length}]`)
     console.log(missingRawMembershipItems)
     console.log()
 
@@ -216,7 +216,11 @@ export default defineCommand({
         ),
       )
 
-    console.log('missingRawLiveChatSponsorshipsGiftPurchaseAnnouncements')
+    console.log(
+      `missingRawLiveChatSponsorshipsGiftPurchaseAnnouncements [${
+        missingRawLiveChatSponsorshipsGiftPurchaseAnnouncements.length
+      }]`,
+    )
     console.log(missingRawLiveChatSponsorshipsGiftPurchaseAnnouncements)
     console.log()
 
@@ -236,7 +240,9 @@ export default defineCommand({
         ),
       )
 
-    console.log('missingRawLiveChatSponsorshipsGiftRedemptionAnnouncements')
+    console.log(
+      `missingRawLiveChatSponsorshipsGiftRedemptionAnnouncements [${missingRawLiveChatSponsorshipsGiftRedemptionAnnouncements.length}]`,
+    )
     console.log(missingRawLiveChatSponsorshipsGiftRedemptionAnnouncements)
     console.log()
 
