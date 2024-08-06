@@ -52,8 +52,16 @@ export default defineCommand({
         .onConflictDoNothing()
         .returning()
 
-      console.log('✨ added new video:')
-      console.log(JSON.stringify(records.at(0), null, 2))
+      const video = records.at(0)
+
+      if (!video) {
+        continue
+      }
+
+      const videoUrl = `https://www.youtube.com/watch?v=${video.id}`
+
+      console.log(`✨ added new video: ${videoUrl}`)
+      console.log(JSON.stringify(video, null, 2))
       console.log()
     }
   },
