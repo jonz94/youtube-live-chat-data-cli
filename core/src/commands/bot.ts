@@ -89,6 +89,12 @@ export default defineCommand({
       console.log()
     }
 
+    if (!isLive && !isUpcoming) {
+      console.log(`🚧 only ongoing/upcoming live streams need this feature...`)
+
+      return
+    }
+
     const livechat = video.getLiveChat()
 
     livechat.on('error', (error) => {
