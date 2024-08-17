@@ -56,8 +56,38 @@ export default defineCommand({
     console.log()
 
     const videoId = args.vid
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`
 
     const video = await youtube.getInfo(videoId)
+
+    const {
+      is_live: isLive,
+      is_upcoming: isUpcoming,
+      title,
+      start_timestamp: startTimestamp,
+      end_timestamp: endTimestamp,
+      duration,
+    } = video.basic_info
+
+    if (args.verbose) {
+      const videoInfo = {
+        isLive,
+        isUpcoming,
+        title,
+        startTimestamp,
+        endTimestamp,
+        duration,
+      }
+
+      console.log(`🚀 start observing live chat data from the video: (${videoUrl})`)
+      console.log(JSON.stringify(videoInfo, null, 2))
+      console.log()
+    } else {
+      console.log(`🚀 start observing live chat data from the video: (${videoUrl})`)
+      console.log()
+      console.log(`\t${title}`)
+      console.log()
+    }
 
     const livechat = video.getLiveChat()
 
@@ -76,7 +106,10 @@ export default defineCommand({
         return
       }
 
+      console.log('debug')
+      console.log()
       console.log(JSON.stringify(action, null, 2))
+      console.log()
 
       const contents = action.banner?.contents
 
@@ -95,9 +128,9 @@ export default defineCommand({
         return
       }
 
-      const name = bannerMessage.replace(KEYWORDS, '')
+      const channelName = bannerMessage.replace(KEYWORDS, '')
 
-      await livechat.sendMessage(`歡迎「${name}」醬肉～`)
+      await livechat.sendMessage(`歡迎【${channelName}】醬肉～`)
     })
 
     livechat.start()
