@@ -44,6 +44,17 @@ export default defineCommand({
 
     console.log('is logged in?', youtube.session.logged_in)
 
+    if (!youtube.session.logged_in) {
+      return
+    }
+
+    const accountInfo = await youtube.account.getInfo()
+
+    const accountName = accountInfo.contents?.contents?.at(0)?.account_name.toString()
+
+    console.log('logged in as', accountName)
+    console.log()
+
     const videoId = args.vid
 
     const video = await youtube.getInfo(videoId)
