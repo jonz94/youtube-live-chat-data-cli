@@ -16,6 +16,18 @@ function convertTimestampUsec2timestamp(timestampUsec: string) {
   return Number(timestampUsec.slice(0, -3))
 }
 
+function parseMessage(input: YTNodes.LiveChatTextMessage) {
+  return input.message.runs
+    ?.map((run) => {
+      if ((run as any).emoji) {
+        return ''
+      }
+
+      return run.text
+    })
+    ?.join('')
+}
+
 async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayChatItemAction, videoId: string) {
   for (const action of replayChatItemAction.actions) {
     switch (action.type) {
@@ -29,6 +41,8 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             const { id, name } = liveChatTextMessage.author
             const timestamp = liveChatTextMessage.timestamp
+
+            console.log(`${name}: ${parseMessage(liveChatTextMessage)}`)
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
