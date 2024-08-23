@@ -19,19 +19,19 @@
   "dependencies": {
     "citty": "^0.1.6",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.32.2",
-    "youtubei.js": "../YouTube.js"
+    "drizzle-orm": "^0.33.0",
+    "youtubei.js": "link:../YouTube.js"
   },
   "devDependencies": {
-    "@libsql/client": "^0.8.1",
+    "@libsql/client": "^0.9.0",
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.5.0",
     "cross-env": "^7.0.3",
-    "drizzle-kit": "^0.23.2",
+    "drizzle-kit": "^0.24.1",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-packagejson": "^2.5.1",
-    "tsx": "^4.16.5",
+    "tsx": "^4.17.0",
     "typescript": "~5.5.4"
   },
   "engines": {
