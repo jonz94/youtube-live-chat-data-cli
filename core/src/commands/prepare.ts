@@ -13,6 +13,10 @@ export default defineCommand({
       required: true,
       type: 'string',
     },
+    silent: {
+      description: 'add `--reporter=silent` option in the output commands',
+      type: 'boolean',
+    },
   },
   run: async ({ args }) => {
     const youtube = await createInnertubeClient()
@@ -23,9 +27,9 @@ export default defineCommand({
 
     for (const videoId of allPublicLiveStreamIds) {
       if (isProduction()) {
-        console.log(`pnpm run start chat --vid="${videoId}"`)
+        console.log(`pnpm${args.silent ? ' --reporter=silent' : ''} run start chat --vid="${videoId}"`)
       } else {
-        console.log(`pnpm run start-dev chat --vid="${videoId}"`)
+        console.log(`pnpm${args.silent ? ' --reporter=silent' : ''} run start-dev chat --vid="${videoId}"`)
       }
     }
   },
