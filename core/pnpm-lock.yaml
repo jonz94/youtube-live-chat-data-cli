@@ -28,8 +28,8 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0
       '@types/node':
-        specifier: ^22.5.1
-        version: 22.5.1
+        specifier: ^22.5.2
+        version: 22.5.2
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -585,8 +585,8 @@ packages:
   '@total-typescript/ts-reset@0.6.0':
     resolution: {integrity: sha512-HWZnkM+5z3INAUZMohVXvX8/vm9sjmfmV2NRAswvv5WsU2m+OZsHAVZ0fl8xf2QH9kyPkinghVW6g3DOQ2xt5Q==}
 
-  '@types/node@22.5.1':
-    resolution: {integrity: sha512-KkHsxej0j9IW1KKOOAA/XBA0z08UFSrRQHErzEfA3Vgq57eXIMYboIlHJuYIfd+lwCQjtKqUu3UnmKbtUc9yRw==}
+  '@types/node@22.5.2':
+    resolution: {integrity: sha512-acJsPTEqYqulZS/Yp/S3GgeE6GZ0qYODUR8aVr/DkhHQ8l9nd4j5x1/ZJy9/gHrRlFMqkO6i0I3E27Alu4jjPg==}
 
   '@types/ws@8.5.12':
     resolution: {integrity: sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==}
@@ -1303,13 +1303,13 @@ snapshots:
 
   '@total-typescript/ts-reset@0.6.0': {}
 
-  '@types/node@22.5.1':
+  '@types/node@22.5.2':
     dependencies:
       undici-types: 6.19.8
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 22.5.1
+      '@types/node': 22.5.2
 
   braces@3.0.3:
     dependencies:
