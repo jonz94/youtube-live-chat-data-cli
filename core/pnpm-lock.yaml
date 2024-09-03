@@ -25,8 +25,8 @@ importers:
         version: link:../YouTube.js
     devDependencies:
       '@total-typescript/ts-reset':
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^0.6.1
+        version: 0.6.1
       '@types/node':
         specifier: ^22.5.2
         version: 22.5.2
@@ -582,8 +582,8 @@ packages:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@total-typescript/ts-reset@0.6.0':
-    resolution: {integrity: sha512-HWZnkM+5z3INAUZMohVXvX8/vm9sjmfmV2NRAswvv5WsU2m+OZsHAVZ0fl8xf2QH9kyPkinghVW6g3DOQ2xt5Q==}
+  '@total-typescript/ts-reset@0.6.1':
+    resolution: {integrity: sha512-cka47fVSo6lfQDIATYqb/vO1nvFfbPw7uWLayIXIhGETj0wcOOlrlkobOMDNQOFr9QOafegUPq13V2+6vtD7yg==}
 
   '@types/node@22.5.2':
     resolution: {integrity: sha512-acJsPTEqYqulZS/Yp/S3GgeE6GZ0qYODUR8aVr/DkhHQ8l9nd4j5x1/ZJy9/gHrRlFMqkO6i0I3E27Alu4jjPg==}
@@ -1301,7 +1301,7 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@total-typescript/ts-reset@0.6.0': {}
+  '@total-typescript/ts-reset@0.6.1': {}
 
   '@types/node@22.5.2':
     dependencies:
