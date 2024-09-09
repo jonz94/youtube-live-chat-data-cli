@@ -18,7 +18,7 @@ import { getProjectRoot } from '~/utils'
 export default defineCommand({
   meta: {
     name: 'json',
-    description: 'Write database data into json files.',
+    description: 'Export database data into JSON files.',
   },
   run: async () => {
     const outputDir = resolve(getProjectRoot(), 'outputs')

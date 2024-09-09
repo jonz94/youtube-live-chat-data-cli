@@ -273,7 +273,7 @@ export default defineCommand({
       type: 'string',
     },
     verbose: {
-      description: 'log more information',
+      description: 'Log more information',
       type: 'boolean',
     },
   },

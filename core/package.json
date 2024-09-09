@@ -1,7 +1,7 @@
 {
   "name": "kuromu-live-chat-data",
   "version": "1.0.0",
-  "description": "Fetch live chat data",
+  "description": "Fetch live chat data from YouTube",
   "type": "module",
   "module": "./src/index.ts",
   "scripts": {

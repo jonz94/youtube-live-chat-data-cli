@@ -34,7 +34,7 @@ async function getImageUrlFromHeader(
 export default defineCommand({
   meta: {
     name: 'avatar',
-    description: 'save user avatar into image files.',
+    description: 'Export channel-related data from the database to JSON files, and save user avatars as image files.',
   },
   run: async () => {
     const outputDir = resolve(getProjectRoot(), 'outputs')

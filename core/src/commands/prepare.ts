@@ -14,7 +14,7 @@ export default defineCommand({
       type: 'string',
     },
     silent: {
-      description: 'add `--reporter=silent` option in the output commands',
+      description: 'Add `--reporter=silent` option in the output commands',
       type: 'boolean',
     },
   },
