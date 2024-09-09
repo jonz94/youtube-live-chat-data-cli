@@ -31,7 +31,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const timestamp = liveChatTextMessage.timestamp
 
             await Promise.all([
-              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
+                target: users.id,
+                set: {
+                  name,
+                },
+              }),
 
               db
                 .insert(rawTextMessage)
@@ -56,7 +61,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const timestamp = liveChatMembershipItem.timestamp
 
             await Promise.all([
-              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
+                target: users.id,
+                set: {
+                  name,
+                },
+              }),
 
               db
                 .insert(rawMembershipItem)
@@ -83,7 +93,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const timestamp = liveChatPaidMessage.timestamp
 
             await Promise.all([
-              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
+                target: users.id,
+                set: {
+                  name,
+                },
+              }),
 
               db
                 .insert(rawPaidMessage)
@@ -115,7 +130,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             const timestamp = liveChatPaidSticker.timestamp
 
             await Promise.all([
-              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
+                target: users.id,
+                set: {
+                  name,
+                },
+              }),
 
               db
                 .insert(rawPaidSticker)
@@ -158,7 +178,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             )
 
             await Promise.all([
-              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
+                target: users.id,
+                set: {
+                  name,
+                },
+              }),
 
               db
                 .insert(rawLiveChatSponsorshipsGiftPurchaseAnnouncement)
@@ -189,7 +214,12 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
             )
 
             await Promise.all([
-              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoNothing(),
+              db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
+                target: users.id,
+                set: {
+                  name,
+                },
+              }),
 
               db
                 .insert(rawLiveChatSponsorshipsGiftRedemptionAnnouncement)
