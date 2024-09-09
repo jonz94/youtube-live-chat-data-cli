@@ -1,5 +1,7 @@
 import { defineCommand } from 'citty'
 import { Table, count } from 'drizzle-orm'
+import { mkdirSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { db } from '~/db/db'
 import {
   rawLiveChatSponsorshipsGiftPurchaseAnnouncement,
@@ -11,6 +13,7 @@ import {
   users,
   videos,
 } from '~/db/schema'
+import { getProjectRoot } from '~/utils'
 
 async function getCountFromDatabaseTable(tableName: Table) {
   // credits: https://orm.drizzle.team/learn/guides/count-rows
@@ -24,7 +27,14 @@ export default defineCommand({
     name: 'count',
     description: 'Count the number of data for each data type.',
   },
-  run: async () => {
+  args: {
+    output: {
+      description: 'Export the result into JSON file',
+      type: 'boolean',
+      default: false,
+    },
+  },
+  run: async ({ args }) => {
     const [
       videosCountResult,
       usersCountResult,
@@ -45,7 +55,7 @@ export default defineCommand({
       getCountFromDatabaseTable(rawLiveChatSponsorshipsGiftRedemptionAnnouncement),
     ])
 
-    console.log({
+    const result = {
       videosCountResult,
       usersCountResult,
       rawTextMessagesCountResult,
@@ -54,6 +64,16 @@ export default defineCommand({
       rawMembershipItemsCountResult,
       rawLiveChatSponsorshipsGiftPurchaseAnnouncementsCountResult,
       rawLiveChatSponsorshipsGiftRedemptionAnnouncementsCountResult,
-    })
+    }
+
+    console.log(result)
+
+    if (args.output) {
+      const outputDir = resolve(getProjectRoot(), 'outputs')
+      mkdirSync(outputDir, { recursive: true })
+
+      const countOutputPath = resolve(outputDir, 'count.json')
+      writeFileSync(countOutputPath, JSON.stringify({ ...result, timestamp: new Date().toISOString() }), 'utf-8')
+    }
   },
 })

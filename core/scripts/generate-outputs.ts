@@ -5,3 +5,4 @@ const command = isProduction() ? 'start' : 'start-dev'
 
 execSync(`pnpm run ${command} json`, { stdio: 'inherit' })
 execSync(`pnpm run ${command} avatar`, { stdio: 'inherit' })
+execSync(`pnpm run ${command} count --output`, { stdio: 'inherit' })
