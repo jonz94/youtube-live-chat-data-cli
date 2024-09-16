@@ -18,6 +18,7 @@ const main = defineCommand({
     count: import('./commands/count').then((mod) => mod.default),
     check: import('./commands/check').then((mod) => mod.default),
     json: import('./commands/json').then((mod) => mod.default),
+    csv: import('./commands/csv').then((mod) => mod.default),
     avatar: import('./commands/avatar').then((mod) => mod.default),
     compare: import('./commands/compare').then((mod) => mod.default),
   },

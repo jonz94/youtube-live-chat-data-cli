@@ -21,6 +21,7 @@
     "citty": "^0.1.6",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
+    "json-2-csv": "^5.5.5",
     "youtubei.js": "link:../YouTube.js"
   },
   "devDependencies": {
