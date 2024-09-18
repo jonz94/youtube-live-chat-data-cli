@@ -32,7 +32,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
-                target: users.channelId,
+                target: users.id,
                 set: {
                   name,
                 },
@@ -62,7 +62,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
-                target: users.channelId,
+                target: users.id,
                 set: {
                   name,
                 },
@@ -94,7 +94,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
-                target: users.channelId,
+                target: users.id,
                 set: {
                   name,
                 },
@@ -131,7 +131,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
-                target: users.channelId,
+                target: users.id,
                 set: {
                   name,
                 },
@@ -179,7 +179,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
-                target: users.channelId,
+                target: users.id,
                 set: {
                   name,
                 },
@@ -215,7 +215,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
             await Promise.all([
               db.insert(users).values({ channelId: id, name, timestamp }).onConflictDoUpdate({
-                target: users.channelId,
+                target: users.id,
                 set: {
                   name,
                 },
