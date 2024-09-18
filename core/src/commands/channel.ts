@@ -54,7 +54,7 @@ async function getChannelInfoFromHeader(
 
 export default defineCommand({
   meta: {
-    name: 'avatar',
+    name: 'channel',
     description: 'Export channel-related data from the database to JSON files, and save user avatars as image files.',
   },
   args: {
