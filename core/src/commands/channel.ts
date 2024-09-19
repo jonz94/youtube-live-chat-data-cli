@@ -150,5 +150,13 @@ export default defineCommand({
       const userAvatarOutputPath = resolve(userOutputDir, 'avatar.jpg')
       writeFileSync(userAvatarOutputPath, image)
     }
+
+    if (args.update) {
+      const updatedChannelData = await db
+        .select({ id: users.channelId, name: users.name, timestamp: users.timestamp })
+        .from(users)
+
+      writeFileSync(channelOutputPath, JSON.stringify(updatedChannelData), 'utf-8')
+    }
   },
 })
