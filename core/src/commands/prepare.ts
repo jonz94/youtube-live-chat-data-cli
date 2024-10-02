@@ -13,6 +13,10 @@ export default defineCommand({
       required: true,
       type: 'string',
     },
+    simple: {
+      description: 'Just output channel id and then exit',
+      type: 'boolean',
+    },
     silent: {
       description: 'Add `--reporter=silent` option in the output commands',
       type: 'boolean',
@@ -22,6 +26,12 @@ export default defineCommand({
     const youtube = await createInnertubeClient()
 
     const channelId = await getChannelId(youtube, args.cid)
+
+    if (args.simple) {
+      console.log(`channel id is: "${channelId}"`)
+
+      return
+    }
 
     const allPublicLiveStreamIds = await getVideoIdsOfAllPublicLiveStreams(youtube, channelId, 'fromOldestToLatest')
 
