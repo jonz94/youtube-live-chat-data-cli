@@ -17,23 +17,23 @@
     "start-dev": "cross-env NODE_ENV=development tsx ./src/index.ts"
   },
   "dependencies": {
-    "@libsql/client": "^0.12.0",
+    "@libsql/client": "^0.14.0",
     "citty": "^0.1.6",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
-    "json-2-csv": "^5.5.5",
+    "json-2-csv": "^5.5.6",
     "youtubei.js": "link:../YouTube.js"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.7.5",
     "cross-env": "^7.0.3",
     "drizzle-kit": "^0.24.2",
     "prettier": "^3.3.3",
-    "prettier-plugin-organize-imports": "^4.0.0",
-    "prettier-plugin-packagejson": "^2.5.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-packagejson": "^2.5.3",
     "tsx": "^4.19.1",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.3"
   },
   "engines": {
     "node": ">=22.9.0",
