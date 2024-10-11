@@ -13,6 +13,11 @@ export default defineCommand({
       required: true,
       type: 'string',
     },
+    silent: {
+      description: 'Do not send message in live chat',
+      type: 'boolean',
+      default: false,
+    },
   },
   run: async ({ args }) => {
     const youtube = await createInnertubeClient()
@@ -136,7 +141,9 @@ export default defineCommand({
 
       const channelName = bannerMessage.replace(KEYWORDS, '')
 
-      await livechat.sendMessage(`歡迎【${channelName}】醬肉～`)
+      if (!args.silent) {
+        await livechat.sendMessage(`歡迎【${channelName}】醬肉～`)
+      }
     })
 
     livechat.start()
