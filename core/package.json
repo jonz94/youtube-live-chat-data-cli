@@ -10,7 +10,6 @@
     "db-migrate-dev": "cross-env NODE_ENV=development tsx ./scripts/db-migrate.ts",
     "db-push-dev": "cross-env NODE_ENV=development tsx ./scripts/db-push.ts",
     "fmt": "prettier --write .",
-    "postinstall": "tsx scripts/build-youtubei.ts",
     "outputs": "tsx scripts/generate-outputs.ts",
     "outputs-dev": "cross-env NODE_ENV=development tsx scripts/generate-outputs.ts",
     "start": "tsx ./src/index.ts",
@@ -22,7 +21,7 @@
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.35.2",
     "json-2-csv": "^5.5.6",
-    "youtubei.js": "link:../YouTube.js"
+    "youtubei.js": "https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@a56c3e3"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",

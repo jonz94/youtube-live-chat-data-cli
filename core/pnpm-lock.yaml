@@ -24,8 +24,8 @@ importers:
         specifier: ^5.5.6
         version: 5.5.6
       youtubei.js:
-        specifier: link:../YouTube.js
-        version: link:../YouTube.js
+        specifier: https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@a56c3e3
+        version: https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@a56c3e3
     devDependencies:
       '@total-typescript/ts-reset':
         specifier: ^0.6.1
@@ -56,6 +56,9 @@ importers:
         version: 5.6.3
 
 packages:
+
+  '@bufbuild/protobuf@2.2.0':
+    resolution: {integrity: sha512-+imAQkHf7U/Rwvu0wk1XWgsP3WnpCWmK7B48f0XqSNzgk64+grljTKC7pnO/xBiEMUziF7vKRfbBnOQhg126qQ==}
 
   '@drizzle-team/brocli@0.10.1':
     resolution: {integrity: sha512-AHy0vjc+n/4w/8Mif+w86qpppHuF3AyXbcWW+R/W7GNA3F5/p2nuhlkCJaTXSLZheB4l1rtHzOfr9A7NwoR/Zg==}
@@ -482,6 +485,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@fastify/busboy@2.1.1':
+    resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
+    engines: {node: '>=14'}
+
   '@libsql/client@0.14.0':
     resolution: {integrity: sha512-/9HEKfn6fwXB5aTEEoMeFh4CtG0ZzbncBb1e++OCdVpgKZ/xyMsIVYXm0w7Pv4RUel803vE6LwniB3PqD72R0Q==}
 
@@ -560,6 +567,11 @@ packages:
 
   '@types/ws@8.5.12':
     resolution: {integrity: sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==}
+
+  acorn@8.13.0:
+    resolution: {integrity: sha512-8zSiw54Oxrdym50NlZ9sUusyO1Z1ZchgRLWRaK6c86XJFClyCgFKetdowBg5bKxyp/u+CDBJG4Mpp0m3HLZl9w==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -803,6 +815,9 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
+  jintr@2.1.1:
+    resolution: {integrity: sha512-89cwX4ouogeDGOBsEVsVYsnWWvWjchmwXBB4kiBhmjOKw19FiOKhNhMhpxhTlK2ctl7DS+d/ethfmuBpzoNNgA==}
+
   js-base64@3.7.7:
     resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
@@ -812,7 +827,6 @@ packages:
 
   libsql@0.4.6:
     resolution: {integrity: sha512-F5M+ltteK6dCcpjMahrkgT96uFJvVI8aQ4r9f2AzHQjC7BkAYtvfMSTWGvRBezRgMUIU2h1Sy0pF9nOGOD5iyA==}
-    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   merge2@1.4.1:
@@ -940,6 +954,10 @@ packages:
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
+  undici@5.28.4:
+    resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
+    engines: {node: '>=14.0'}
+
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
@@ -961,7 +979,13 @@ packages:
       utf-8-validate:
         optional: true
 
+  youtubei.js@https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@a56c3e3:
+    resolution: {tarball: https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@a56c3e3}
+    version: 10.5.0
+
 snapshots:
+
+  '@bufbuild/protobuf@2.2.0': {}
 
   '@drizzle-team/brocli@0.10.1': {}
 
@@ -1182,6 +1206,8 @@ snapshots:
   '@esbuild/win32-x64@0.23.1':
     optional: true
 
+  '@fastify/busboy@2.1.1': {}
+
   '@libsql/client@0.14.0':
     dependencies:
       '@libsql/core': 0.14.0
@@ -1263,6 +1289,8 @@ snapshots:
   '@types/ws@8.5.12':
     dependencies:
       '@types/node': 22.7.7
+
+  acorn@8.13.0: {}
 
   braces@3.0.3:
     dependencies:
@@ -1468,6 +1496,10 @@ snapshots:
 
   isexe@2.0.0: {}
 
+  jintr@2.1.1:
+    dependencies:
+      acorn: 8.13.0
+
   js-base64@3.7.7: {}
 
   json-2-csv@5.5.6:
@@ -1589,6 +1621,10 @@ snapshots:
 
   undici-types@6.19.8: {}
 
+  undici@5.28.4:
+    dependencies:
+      '@fastify/busboy': 2.1.1
+
   web-streams-polyfill@3.3.3: {}
 
   which@2.0.2:
@@ -1596,3 +1632,10 @@ snapshots:
       isexe: 2.0.0
 
   ws@8.18.0: {}
+
+  youtubei.js@https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@a56c3e3:
+    dependencies:
+      '@bufbuild/protobuf': 2.2.0
+      jintr: 2.1.1
+      tslib: 2.8.0
+      undici: 5.28.4
