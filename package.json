@@ -10,8 +10,8 @@
     "db-migrate-dev": "cross-env NODE_ENV=development tsx ./scripts/db-migrate.ts",
     "db-push-dev": "cross-env NODE_ENV=development tsx ./scripts/db-push.ts",
     "fmt": "prettier --write .",
-    "outputs": "tsx scripts/generate-outputs.ts",
-    "outputs-dev": "cross-env NODE_ENV=development tsx scripts/generate-outputs.ts",
+    "outputs": "tsx ./scripts/generate-outputs.ts",
+    "outputs-dev": "cross-env NODE_ENV=development tsx ./scripts/generate-outputs.ts",
     "start": "tsx ./src/index.ts",
     "start-dev": "cross-env NODE_ENV=development tsx ./src/index.ts"
   },
