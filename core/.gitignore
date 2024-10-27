@@ -15,3 +15,6 @@ outputs.zip
 
 # output csv
 *.csv
+
+# playgrounds
+playgrounds/
