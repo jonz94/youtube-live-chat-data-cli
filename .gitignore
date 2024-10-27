@@ -1,2 +1,20 @@
-# data of database tables
-dump/
+.DS_Store
+.cache/
+node_modules/
+
+# environment files
+.env*
+!.env.example
+
+# local database
+*.sqlite3
+
+# output json
+outputs/
+outputs.zip
+
+# output csv
+*.csv
+
+# playgrounds
+playgrounds/
