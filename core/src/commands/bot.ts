@@ -1,6 +1,6 @@
 import { defineCommand } from 'citty'
 import { YTNodes } from 'youtubei.js'
-import { createInnertubeClient } from '~/utils'
+import { createInnertubeClient, getAccountName } from '~/utils'
 
 export default defineCommand({
   meta: {
@@ -53,9 +53,7 @@ export default defineCommand({
       return
     }
 
-    const accountInfo = await youtube.account.getInfo()
-
-    const accountName = accountInfo.contents?.contents?.at(0)?.account_name.toString()
+    const accountName = await getAccountName(youtube)
 
     console.log('logged in as', accountName)
     console.log()
@@ -101,6 +99,11 @@ export default defineCommand({
     }
 
     const livechat = video.getLiveChat()
+
+    // NOTE: debug purpose
+    // livechat.once('start', async () => {
+    //   await livechat.sendMessage('hi')
+    // })
 
     livechat.on('error', (error) => {
       console.info('Live chat error:', error)

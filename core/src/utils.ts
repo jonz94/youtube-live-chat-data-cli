@@ -1,6 +1,6 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { Innertube, UniversalCache, type InnertubeConfig } from 'youtubei.js'
+import { Innertube, UniversalCache, YTNodes } from 'youtubei.js'
 
 export function getDirname() {
   return import.meta.dirname ?? dirname(fileURLToPath(import.meta.url))
@@ -10,7 +10,7 @@ export function getProjectRoot() {
   return dirname(getDirname())
 }
 
-export async function createInnertubeClient(config?: InnertubeConfig) {
+export async function createInnertubeClient(config?: any) {
   return await Innertube.create({
     cache: new UniversalCache(true, resolve(getDirname(), '..', '.cache')),
     ...config,
@@ -27,6 +27,18 @@ export async function getChannelId(youtube: Innertube, id: string) {
   return (navigationEndpoint.toURL() ?? '').replace('https://www.youtube.com/channel/', '')
 }
 
+function getVideoId(item: YTNodes.PlaylistVideo | YTNodes.ReelItem | YTNodes.ShortsLockupView) {
+  if (item.is(YTNodes.PlaylistVideo)) {
+    return item.id
+  }
+
+  if (item.is(YTNodes.ReelItem)) {
+    return item.id
+  }
+
+  return item.entity_id.replace('shorts-shelf-item-', '')
+}
+
 export async function getVideoIdsOfAllPublicLiveStreams(
   youtube: Innertube,
   channelId: string,
@@ -35,13 +47,13 @@ export async function getVideoIdsOfAllPublicLiveStreams(
   const allPublicLiveStreamsPlaylistId = channelId.replace(/^UC/, 'UULV')
 
   let playlist = await youtube.getPlaylist(allPublicLiveStreamsPlaylistId)
-  let videoIds = playlist.items.map((item) => item.id)
+  let videoIds = playlist.items.map((item) => getVideoId(item))
 
   // fetch all data until the end
   while (playlist.has_continuation) {
     playlist = await playlist.getContinuation()
 
-    videoIds = videoIds.concat(playlist.items.map((item) => item.id))
+    videoIds = videoIds.concat(playlist.items.map((item) => getVideoId(item)))
   }
 
   return order === 'fromLatestToOldest' ? videoIds : videoIds.toReversed()
@@ -70,4 +82,21 @@ export async function getChannel(youtube: Innertube, channelId: string) {
     console.log(error)
     return null
   }
+}
+
+export async function getAccountName(youtube: Innertube) {
+  const accountInfo = await youtube.account.getInfo()
+  const content = accountInfo.contents?.contents.at(0)
+
+  if (!content) {
+    throw new Error('content is empty')
+  }
+
+  if (content.is(YTNodes.AccountItem)) {
+    return content.account_name.toString()
+  }
+
+  console.log(content.type, content)
+
+  throw new Error(`parse ${content.type} is not implemented`)
 }

@@ -1,5 +1,5 @@
 import { defineCommand } from 'citty'
-import { createInnertubeClient } from '~/utils'
+import { createInnertubeClient, getAccountName } from '~/utils'
 
 export default defineCommand({
   meta: {
@@ -35,5 +35,9 @@ export default defineCommand({
     await youtube.session.oauth.cacheCredentials()
 
     console.log('is logged in?', youtube.session.logged_in)
+
+    const accountName = await getAccountName(youtube)
+
+    console.log('logged in as', accountName)
   },
 })
