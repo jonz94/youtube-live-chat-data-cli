@@ -21,6 +21,8 @@ const main = defineCommand({
     json: import('./commands/json').then((mod) => mod.default),
     csv: import('./commands/csv').then((mod) => mod.default),
     channel: import('./commands/channel').then((mod) => mod.default),
+    'check-is-live': import('./commands/check-is-live').then((mod) => mod.default),
+    'check-is-premiere': import('./commands/check-is-premiere').then((mod) => mod.default),
   },
 })
 
