@@ -17,7 +17,7 @@ function isProduction() {
   return currentEnv === undefined || currentEnv === 'production'
 }
 
-function parseJsonStringIntoArray(input: any) {
+function parseJsonStringIntoArray(key: string, input: any) {
   try {
     const parsedInput = JSON.parse(input) as unknown
 
@@ -31,7 +31,7 @@ function parseJsonStringIntoArray(input: any) {
 
     return parsedInput
   } catch (error) {
-    throw new Error('Cannot parse input')
+    throw new Error(`Cannot parse ${key}`)
   }
 }
 
@@ -49,7 +49,7 @@ const env = {
 
 for (const [key, value] of Object.entries(env) as [keyof typeof env, (typeof env)[keyof typeof env]][]) {
   if (key === 'BLACKLISTED_ACCOUNTS') {
-    env.BLACKLISTED_ACCOUNTS = value ? parseJsonStringIntoArray(value) : []
+    env.BLACKLISTED_ACCOUNTS = value ? parseJsonStringIntoArray(key, value) : []
     continue
   }
 
