@@ -24,6 +24,11 @@ export default defineCommand({
       type: 'boolean',
       default: false,
     },
+    debug: {
+      description: 'Send hi after connection into live chat as dubugging purpose',
+      type: 'boolean',
+      default: false,
+    },
   },
   run: async ({ args }) => {
     const youtube = await (function createClient() {
@@ -121,9 +126,11 @@ export default defineCommand({
     const livechat = video.getLiveChat()
 
     // NOTE: debug purpose
-    // livechat.once('start', async () => {
-    //   await livechat.sendMessage('hi')
-    // })
+    if (args.debug) {
+      livechat.once('start', async () => {
+        await livechat.sendMessage('hi')
+      })
+    }
 
     livechat.on('error', (error) => {
       console.info('Live chat error:', error)
