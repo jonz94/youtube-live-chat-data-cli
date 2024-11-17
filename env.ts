@@ -4,6 +4,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       NODE_ENV?: string
+      COOKIE?: string
       DATABASE_URL: string
       DATABASE_AUTH_TOKEN: string
       BLACKLISTED_ACCOUNTS: string[]
@@ -39,15 +40,20 @@ function parseJsonStringIntoArray(key: string, input: any) {
 const envFile = isProduction() ? `.env` : process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env'
 dotenv.config({ path: envFile })
 
-const { DATABASE_URL, DATABASE_AUTH_TOKEN, BLACKLISTED_ACCOUNTS } = process.env
+const { COOKIE, DATABASE_URL, DATABASE_AUTH_TOKEN, BLACKLISTED_ACCOUNTS } = process.env
 
 const env = {
+  COOKIE,
   DATABASE_URL,
   DATABASE_AUTH_TOKEN,
   BLACKLISTED_ACCOUNTS,
 }
 
 for (const [key, value] of Object.entries(env) as [keyof typeof env, (typeof env)[keyof typeof env]][]) {
+  if (key === 'COOKIE') {
+    continue
+  }
+
   if (key === 'BLACKLISTED_ACCOUNTS') {
     env.BLACKLISTED_ACCOUNTS = value ? parseJsonStringIntoArray(key, value) : []
     continue

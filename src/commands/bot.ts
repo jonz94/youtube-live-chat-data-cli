@@ -1,5 +1,6 @@
 import { defineCommand } from 'citty'
 import { YTNodes } from 'youtubei.js'
+import { env } from '~/env'
 import { createInnertubeClient, getAccountName } from '~/utils'
 
 export default defineCommand({
@@ -13,6 +14,11 @@ export default defineCommand({
       required: true,
       type: 'string',
     },
+    cookie: {
+      description: 'Use cookie',
+      type: 'boolean',
+      default: false,
+    },
     silent: {
       description: 'Do not send message in live chat',
       type: 'boolean',
@@ -20,34 +26,48 @@ export default defineCommand({
     },
   },
   run: async ({ args }) => {
-    const youtube = await createInnertubeClient()
+    const youtube = await (function createClient() {
+      if (!args.cookie) {
+        return createInnertubeClient()
+      }
+
+      if (!env.COOKIE) {
+        throw new Error('Missing environment variables COOKIE')
+      }
+
+      return createInnertubeClient({
+        cookie: env.COOKIE,
+      })
+    })()
 
     console.log('is logged in?', youtube.session.logged_in)
 
-    // Fired when waiting for the user to authorize the sign in attempt.
-    youtube.session.on('auth-pending', (data) => {
-      console.log(`Go to ${data.verification_url} in your browser and enter code ${data.user_code} to authenticate.`)
-      console.log({ data })
-    })
+    if (!args.cookie) {
+      // Fired when waiting for the user to authorize the sign in attempt.
+      youtube.session.on('auth-pending', (data) => {
+        console.log(`Go to ${data.verification_url} in your browser and enter code ${data.user_code} to authenticate.`)
+        console.log({ data })
+      })
 
-    // Fired when authentication is successful.
-    youtube.session.on('auth', ({ credentials }) => {
-      // console.log('Sign in successful:', credentials)
-    })
+      // Fired when authentication is successful.
+      youtube.session.on('auth', ({ credentials }) => {
+        // console.log('Sign in successful:', credentials)
+      })
 
-    // Fired when the access token expires.
-    youtube.session.on('update-credentials', async ({ credentials }) => {
-      // console.log('Credentials updated:', credentials)
+      // Fired when the access token expires.
+      youtube.session.on('update-credentials', async ({ credentials }) => {
+        // console.log('Credentials updated:', credentials)
+        await youtube.session.oauth.cacheCredentials()
+      })
+
+      await youtube.session.signIn()
+
+      // You may cache the session for later use
+      // If you use this, the next call to signIn won't fire 'auth-pending' instead just 'auth'.
       await youtube.session.oauth.cacheCredentials()
-    })
 
-    await youtube.session.signIn()
-
-    // You may cache the session for later use
-    // If you use this, the next call to signIn won't fire 'auth-pending' instead just 'auth'.
-    await youtube.session.oauth.cacheCredentials()
-
-    console.log('is logged in?', youtube.session.logged_in)
+      console.log('is logged in?', youtube.session.logged_in)
+    }
 
     if (!youtube.session.logged_in) {
       return
