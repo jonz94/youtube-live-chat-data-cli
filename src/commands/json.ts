@@ -17,7 +17,6 @@ import { getProjectRoot } from '~/utils'
 
 export default defineCommand({
   meta: {
-    name: 'json',
     description: 'Export database data into JSON files.',
   },
   run: async () => {

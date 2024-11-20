@@ -5,7 +5,6 @@ import { createInnertubeClient, getVideoInfo } from '~/utils'
 
 export default defineCommand({
   meta: {
-    name: 'check',
     description: 'Check database.',
   },
   run: async () => {

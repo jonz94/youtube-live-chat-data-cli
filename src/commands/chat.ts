@@ -233,7 +233,6 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
 
 export default defineCommand({
   meta: {
-    name: 'chat',
     description: 'Fetch all live chat data from a YouTube live stream.',
   },
   args: {

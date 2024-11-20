@@ -5,7 +5,6 @@ import { createInnertubeClient, getAccountName } from '~/utils'
 
 export default defineCommand({
   meta: {
-    name: 'bot',
     description: 'Running bot that will notice important message in live chat.',
   },
   args: {

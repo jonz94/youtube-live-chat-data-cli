@@ -4,7 +4,6 @@ import { createInnertubeClient, getChannelId } from '~/utils'
 
 export default defineCommand({
   meta: {
-    name: 'check-is-live',
     description: 'Check whether a YouTube channel is currently live streaming.',
   },
   args: {

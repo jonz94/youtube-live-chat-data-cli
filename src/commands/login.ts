@@ -3,7 +3,6 @@ import { createInnertubeClient, getAccountName } from '~/utils'
 
 export default defineCommand({
   meta: {
-    name: 'login',
     description: 'Sign in to YouTube TV.',
   },
   run: async () => {

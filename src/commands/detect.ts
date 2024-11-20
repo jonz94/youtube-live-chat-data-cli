@@ -42,7 +42,6 @@ function parseAddChatItemAction(action: YTNodes.AddChatItemAction) {
 
 export default defineCommand({
   meta: {
-    name: 'detect',
     description: 'Running bot that will detect blacklisted accounts in live chat.',
   },
   args: {

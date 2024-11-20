@@ -5,7 +5,6 @@ import { createInnertubeClient, getChannelId, getVideoIdsOfAllPublicLiveStreams,
 
 export default defineCommand({
   meta: {
-    name: 'videos',
     description: 'Fetch all videos data from a YouTube channel.',
   },
   args: {

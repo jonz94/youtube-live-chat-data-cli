@@ -3,7 +3,6 @@ import { createInnertubeClient } from '~/utils'
 
 export default defineCommand({
   meta: {
-    name: 'logout',
     description: 'Sign out to YouTube TV.',
   },
   run: async () => {

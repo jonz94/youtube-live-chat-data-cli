@@ -24,7 +24,6 @@ async function getCountFromDatabaseTable(tableName: Table) {
 
 export default defineCommand({
   meta: {
-    name: 'count',
     description: 'Count the number of data for each data type.',
   },
   args: {

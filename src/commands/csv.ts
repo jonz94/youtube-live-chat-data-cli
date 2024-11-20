@@ -49,7 +49,6 @@ function parseJsonMessage(text?: string) {
 
 export default defineCommand({
   meta: {
-    name: 'csv',
     description: 'Export database data into CSV file.',
   },
   args: {
