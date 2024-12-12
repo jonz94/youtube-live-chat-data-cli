@@ -4,7 +4,7 @@ import { env } from './env'
 export default defineConfig({
   schema: './src/db/schema.ts',
   casing: 'snake_case',
-  out: './drizzle',
+  out: './src/db/drizzle',
   dialect: 'turso',
   dbCredentials: {
     url: env.DATABASE_URL,
