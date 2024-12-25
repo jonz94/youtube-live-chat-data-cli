@@ -3,6 +3,68 @@ import { YTNodes } from 'youtubei.js'
 import { env } from '~/env'
 import { createInnertubeClient, getAccountName } from '~/utils'
 
+function parseAddChatItemAction(action: YTNodes.AddChatItemAction, callback: (name: string, amount: number) => void) {
+  switch (action.type) {
+    case YTNodes.AddChatItemAction.type:
+      const addChatItemAction = action.as(YTNodes.AddChatItemAction)
+      const item = addChatItemAction.item
+
+      switch (item.type) {
+        case YTNodes.LiveChatSponsorshipsGiftPurchaseAnnouncement.type: {
+          const liveChatSponsorshipsGiftPurchaseAnnouncement = item.as(
+            YTNodes.LiveChatSponsorshipsGiftPurchaseAnnouncement,
+          )
+
+          const { header } = liveChatSponsorshipsGiftPurchaseAnnouncement
+
+          if (!header) {
+            break
+          }
+
+          const name = header.author_name.toString()
+          const headerPrimaryText = header.primary_text.toString()
+
+          console.log({ name, headerPrimaryText })
+
+          const amount = Number.parseInt(headerPrimaryText.split(' ').at(1) ?? '0', 10)
+
+          if (amount === 0) {
+            break
+          }
+
+          callback(name, amount)
+
+          break
+        }
+
+        case YTNodes.LiveChatTextMessage.type:
+        case YTNodes.LiveChatMembershipItem.type:
+        case YTNodes.LiveChatPaidMessage.type:
+        case YTNodes.LiveChatPaidSticker.type:
+        case YTNodes.LiveChatSponsorshipsGiftRedemptionAnnouncement.type:
+        case YTNodes.LiveChatViewerEngagementMessage.type: {
+          // do nothing
+          break
+        }
+
+        default:
+          console.log(`🚧 [${YTNodes.LiveChatTextMessage.type}] ${item.type}`)
+          break
+      }
+      break
+
+    case YTNodes.AddLiveChatTickerItemAction.type:
+    case YTNodes.AddBannerToLiveChatCommand.type:
+    case YTNodes.RemoveBannerForLiveChatCommand.type:
+      // not implement yet
+      break
+
+    default:
+      console.log(`🚧 [${YTNodes.AddChatItemAction.type}] ${action.type}`)
+      break
+  }
+}
+
 export default defineCommand({
   meta: {
     description: 'Running bot that will notice important message in live chat.',
@@ -17,6 +79,16 @@ export default defineCommand({
       description: 'Use cookie',
       type: 'boolean',
       default: false,
+    },
+    count: {
+      description: 'Count gifted memberships',
+      type: 'boolean',
+      default: false,
+    },
+    total: {
+      description: 'Initial value for total number of gifted memberships',
+      type: 'string',
+      default: '0',
     },
     silent: {
       description: 'Do not send message in live chat',
@@ -122,6 +194,12 @@ export default defineCommand({
       return
     }
 
+    let total = 0
+
+    if (args.count) {
+      total = Number.parseInt(args.total, 10)
+    }
+
     const livechat = video.getLiveChat()
 
     // NOTE: debug purpose
@@ -142,6 +220,16 @@ export default defineCommand({
     })
 
     livechat.on('chat-update', async (action) => {
+      if (args.count && action.is(YTNodes.AddChatItemAction)) {
+        parseAddChatItemAction(action, async (name, amount) => {
+          total = total + amount
+          await livechat
+            .sendMessage(`感謝 ${name} 種了 ${amount} 個貓草，本次直播已經累積種了 ${total} 個貓草`)
+            .catch((error) => console.error(error))
+        })
+        return
+      }
+
       if (!action.is(YTNodes.AddBannerToLiveChatCommand)) {
         return
       }
