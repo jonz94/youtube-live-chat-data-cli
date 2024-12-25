@@ -171,7 +171,7 @@ export default defineCommand({
       const channelName = bannerMessage.replace(KEYWORDS, '')
 
       if (!args.silent) {
-        await livechat.sendMessage(`歡迎【${channelName}】醬肉～`)
+        await livechat.sendMessage(`歡迎【${channelName}】醬肉～`).catch((error) => console.error(error))
       }
     })
 
