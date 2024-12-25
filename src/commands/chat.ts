@@ -66,9 +66,9 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   videoId,
                   timestamp,
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
-                  headerPrimaryText: liveChatMembershipItem.header_primary_text.toString(),
+                  headerPrimaryText: liveChatMembershipItem.header_primary_text?.toString() ?? 'N/A',
                   headerSubtext: liveChatMembershipItem.header_subtext.toString(),
-                  jsonMessage: JSON.stringify(liveChatMembershipItem.message),
+                  jsonMessage: JSON.stringify(liveChatMembershipItem.message ?? {}),
                 })
                 .onConflictDoNothing(),
             ])
@@ -182,8 +182,8 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
               YTNodes.LiveChatSponsorshipsGiftRedemptionAnnouncement,
             )
 
-            const id = liveChatSponsorshipsGiftRedemptionAnnouncement.author_external_channel_id
-            const name = liveChatSponsorshipsGiftRedemptionAnnouncement.author_name.toString()
+            const id = liveChatSponsorshipsGiftRedemptionAnnouncement.author.id
+            const name = liveChatSponsorshipsGiftRedemptionAnnouncement.author.name.toString()
             const timestamp = convertTimestampUsec2timestamp(
               liveChatSponsorshipsGiftRedemptionAnnouncement.timestamp_usec,
             )
