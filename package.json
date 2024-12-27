@@ -21,7 +21,7 @@
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.3",
     "json-2-csv": "^5.5.7",
-    "youtubei.js": "https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@e663a11"
+    "youtubei.js": "https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@431c793"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",
