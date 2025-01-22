@@ -24,8 +24,8 @@ importers:
         specifier: ^5.5.7
         version: 5.5.7
       youtubei.js:
-        specifier: https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@431c793
-        version: https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@431c793
+        specifier: ^13.0.0
+        version: 13.0.0
     devDependencies:
       '@total-typescript/ts-reset':
         specifier: ^0.6.1
@@ -910,9 +910,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  youtubei.js@https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@431c793:
-    resolution: {tarball: https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@431c793}
-    version: 12.2.0
+  youtubei.js@13.0.0:
+    resolution: {integrity: sha512-b1QkN9bfgphK+5tI4qteSK54kNxmPhoedvMw0jl4uSn+L8gbDbJ4z52amNuYNcOdp4X/SI3JuUb+f5V0DPJ8Vw==}
 
 snapshots:
 
@@ -1492,7 +1491,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  youtubei.js@https://pkg.pr.new/jonz94/YouTube.js/youtubei.js@431c793:
+  youtubei.js@13.0.0:
     dependencies:
       '@bufbuild/protobuf': 2.2.3
       jintr: 3.2.0
