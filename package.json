@@ -19,24 +19,24 @@
     "@libsql/client": "^0.14.0",
     "citty": "^0.1.6",
     "dotenv": "^16.4.7",
-    "drizzle-orm": "^0.39.3",
+    "drizzle-orm": "^0.40.0",
     "json-2-csv": "^5.5.8",
-    "youtubei.js": "^13.0.0"
+    "youtubei.js": "^13.1.0"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "cross-env": "^7.0.3",
-    "drizzle-kit": "^0.30.4",
-    "prettier": "^3.5.1",
+    "drizzle-kit": "^0.30.5",
+    "prettier": "^3.5.2",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-packagejson": "^2.5.8",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.3",
     "typescript": "~5.7.3"
   },
-  "packageManager": "pnpm@10.4.0",
   "engines": {
-    "node": ">=22.14.0"
+    "node": ">=22.14.0",
+    "pnpm": ">=10"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
