@@ -78,7 +78,7 @@ export default defineCommand({
     cookie: {
       description: 'Use cookie',
       type: 'boolean',
-      default: false,
+      default: true,
     },
     count: {
       description: 'Count gifted memberships',
