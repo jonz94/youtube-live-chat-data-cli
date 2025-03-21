@@ -16,12 +16,12 @@
     "start-dev": "cross-env NODE_ENV=development tsx ./src/index.ts"
   },
   "dependencies": {
-    "@libsql/client": "^0.14.0",
+    "@libsql/client": "^0.15.0",
     "citty": "^0.1.6",
     "dotenv": "^16.4.7",
-    "drizzle-orm": "^0.40.0",
+    "drizzle-orm": "^0.40.1",
     "json-2-csv": "^5.5.9",
-    "youtubei.js": "^13.1.0"
+    "youtubei.js": "^13.2.0"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",
