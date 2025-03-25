@@ -51,7 +51,11 @@ export default defineCommand({
 
       const userRawTextMessageOutputPath = resolve(userOutputDir, 'raw-text-messages.json')
 
-      writeFileSync(userRawTextMessageOutputPath, JSON.stringify(rawTextMessageData), 'utf-8')
+      writeFileSync(
+        userRawTextMessageOutputPath,
+        JSON.stringify(rawTextMessageData.map((data) => ({ ...data, jsonMessage: data.jsonMessage.toString() }))),
+        'utf-8',
+      )
 
       // raw membership items
       const rawMembershipItemData = await db
@@ -62,7 +66,11 @@ export default defineCommand({
 
       const userRawMembershipItemOutputPath = resolve(userOutputDir, 'raw-membership-items.json')
 
-      writeFileSync(userRawMembershipItemOutputPath, JSON.stringify(rawMembershipItemData), 'utf-8')
+      writeFileSync(
+        userRawMembershipItemOutputPath,
+        JSON.stringify(rawMembershipItemData.map((data) => ({ ...data, jsonMessage: data.jsonMessage.toString() }))),
+        'utf-8',
+      )
 
       // raw paid message
       const rawPaidMessageData = await db
@@ -73,7 +81,11 @@ export default defineCommand({
 
       const userRawPaidMessageOutputPath = resolve(userOutputDir, 'raw-paid-messages.json')
 
-      writeFileSync(userRawPaidMessageOutputPath, JSON.stringify(rawPaidMessageData), 'utf-8')
+      writeFileSync(
+        userRawPaidMessageOutputPath,
+        JSON.stringify(rawPaidMessageData.map((data) => ({ ...data, jsonMessage: data.jsonMessage.toString() }))),
+        'utf-8',
+      )
 
       // raw paid sticker
       const rawPaidStickerData = await db
@@ -84,7 +96,11 @@ export default defineCommand({
 
       const userRawPaidStickerOutputPath = resolve(userOutputDir, 'raw-paid-stickers.json')
 
-      writeFileSync(userRawPaidStickerOutputPath, JSON.stringify(rawPaidStickerData), 'utf-8')
+      writeFileSync(
+        userRawPaidStickerOutputPath,
+        JSON.stringify(rawPaidStickerData.map((data) => ({ ...data, jsonSticker: data.jsonSticker.toString() }))),
+        'utf-8',
+      )
 
       // raw live chat sponsorships gift purchase announcement
       const rawLiveChatSponsorshipsGiftPurchaseAnnouncementData = await db

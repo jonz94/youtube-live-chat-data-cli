@@ -24,7 +24,7 @@ export const rawTextMessage = sqliteTable('raw_text_message', (c) => ({
   timestamp: c.integer('timestamp').notNull(),
   videoOffsetTimeMsec: c.text('video_offset_time_msec').notNull(),
 
-  jsonMessage: c.blob('json_message').notNull(),
+  jsonMessage: c.blob('json_message', { mode: 'buffer' }).notNull(),
 }))
 
 export const rawMembershipItem = sqliteTable('raw_membership_item', (c) => ({
@@ -36,7 +36,7 @@ export const rawMembershipItem = sqliteTable('raw_membership_item', (c) => ({
 
   headerPrimaryText: c.text('header_primary_text').notNull(),
   headerSubtext: c.text('header_subtext').notNull(),
-  jsonMessage: c.blob('json_message').notNull(),
+  jsonMessage: c.blob('json_message', { mode: 'buffer' }).notNull(),
 }))
 
 export const rawPaidMessage = sqliteTable('raw_paid_message', (c) => ({
@@ -52,7 +52,7 @@ export const rawPaidMessage = sqliteTable('raw_paid_message', (c) => ({
   bodyTextColor: c.integer('body_text_color').notNull(),
 
   purchaseAmount: c.text('purchase_amount').notNull(),
-  jsonMessage: c.blob('json_message').notNull(),
+  jsonMessage: c.blob('json_message', { mode: 'buffer' }).notNull(),
 }))
 
 export const rawPaidSticker = sqliteTable('raw_paid_sticker', (c) => ({
@@ -68,7 +68,7 @@ export const rawPaidSticker = sqliteTable('raw_paid_sticker', (c) => ({
   authorNameTextColor: c.integer('author_name_text_color').notNull(),
 
   purchaseAmount: c.text('purchase_amount').notNull(),
-  jsonSticker: c.blob('json_sticker').notNull(),
+  jsonSticker: c.blob('json_sticker', { mode: 'buffer' }).notNull(),
 }))
 
 export const rawLiveChatSponsorshipsGiftPurchaseAnnouncement = sqliteTable(
