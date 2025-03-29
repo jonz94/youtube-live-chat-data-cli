@@ -34,14 +34,14 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1
       '@types/node':
-        specifier: ^22.13.13
-        version: 22.13.13
+        specifier: ^22.13.14
+        version: 22.13.14
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
       drizzle-kit:
-        specifier: ^0.30.5
-        version: 0.30.5
+        specifier: ^0.30.6
+        version: 0.30.6
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -292,8 +292,8 @@ packages:
   '@total-typescript/ts-reset@0.6.1':
     resolution: {integrity: sha512-cka47fVSo6lfQDIATYqb/vO1nvFfbPw7uWLayIXIhGETj0wcOOlrlkobOMDNQOFr9QOafegUPq13V2+6vtD7yg==}
 
-  '@types/node@22.13.13':
-    resolution: {integrity: sha512-ClsL5nMwKaBRwPcCvH8E7+nU4GxHVx1axNvMZTFHMEfNI7oahimt26P5zjVCRrjiIWj6YFXfE1v3dEp94wLcGQ==}
+  '@types/node@22.13.14':
+    resolution: {integrity: sha512-Zs/Ollc1SJ8nKUAgc7ivOEdIBM8JAKgrqqUYi2J997JuKO7/tpQC+WCetQ1sypiKCQWHdvdg9wBNpUPEWZae7w==}
 
   '@types/ws@8.18.0':
     resolution: {integrity: sha512-8svvI3hMyvN0kKCJMvTJP/x6Y/EoQbepff882wL+Sn5QsXb3etnamgrJq4isrBxSJj5L2AuXcI0+bgkoAXGUJw==}
@@ -359,8 +359,8 @@ packages:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
 
-  drizzle-kit@0.30.5:
-    resolution: {integrity: sha512-l6dMSE100u7sDaTbLczibrQZjA35jLsHNqIV+jmhNVO3O8jzM6kywMOmV9uOz9ZVSCMPQhAZEFjL/qDPVrqpUA==}
+  drizzle-kit@0.30.6:
+    resolution: {integrity: sha512-U4wWit0fyZuGuP7iNmRleQyK2V8wCuv57vf5l3MnG4z4fzNTjY/U13M8owyQ5RavqvqxBifWORaR3wIUzlN64g==}
     hasBin: true
 
   drizzle-orm@0.41.0:
@@ -821,13 +821,13 @@ snapshots:
 
   '@total-typescript/ts-reset@0.6.1': {}
 
-  '@types/node@22.13.13':
+  '@types/node@22.13.14':
     dependencies:
       undici-types: 6.20.0
 
   '@types/ws@8.18.0':
     dependencies:
-      '@types/node': 22.13.13
+      '@types/node': 22.13.14
 
   acorn@8.14.1: {}
 
@@ -867,7 +867,7 @@ snapshots:
 
   dotenv@16.4.7: {}
 
-  drizzle-kit@0.30.5:
+  drizzle-kit@0.30.6:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
       '@esbuild-kit/esm-loader': 2.6.5
