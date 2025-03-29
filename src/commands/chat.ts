@@ -41,7 +41,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   videoId,
                   timestamp,
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
-                  jsonMessage: JSON.stringify(liveChatTextMessage.message),
+                  jsonMessage: JSON.stringify(liveChatTextMessage.message) as unknown as Buffer,
                 })
                 .onConflictDoNothing(),
             ])
@@ -68,7 +68,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   videoOffsetTimeMsec: replayChatItemAction.video_offset_time_msec,
                   headerPrimaryText: liveChatMembershipItem.header_primary_text?.toString() ?? 'N/A',
                   headerSubtext: liveChatMembershipItem.header_subtext.toString(),
-                  jsonMessage: JSON.stringify(liveChatMembershipItem.message ?? {}),
+                  jsonMessage: JSON.stringify(liveChatMembershipItem.message ?? {}) as unknown as Buffer,
                 })
                 .onConflictDoNothing(),
             ])
@@ -100,7 +100,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   bodyTextColor: liveChatPaidMessage.body_text_color,
 
                   purchaseAmount: liveChatPaidMessage.purchase_amount,
-                  jsonMessage: JSON.stringify(liveChatPaidMessage.message),
+                  jsonMessage: JSON.stringify(liveChatPaidMessage.message) as unknown as Buffer,
                 })
                 .onConflictDoNothing(),
             ])
@@ -132,7 +132,7 @@ async function parseReplayChatItemAction(replayChatItemAction: YTNodes.ReplayCha
                   authorNameTextColor: liveChatPaidSticker.author_name_text_color,
 
                   purchaseAmount: liveChatPaidSticker.purchase_amount,
-                  jsonSticker: JSON.stringify(liveChatPaidSticker.sticker),
+                  jsonSticker: JSON.stringify(liveChatPaidSticker.sticker) as unknown as Buffer,
                 })
                 .onConflictDoNothing(),
             ])
