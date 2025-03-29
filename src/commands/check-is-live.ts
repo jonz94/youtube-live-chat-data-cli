@@ -60,7 +60,7 @@ export default defineCommand({
         throw new Error(`tabContent contents content type ${content.type} not implemented`)
       }
 
-      return content.duration.text.toLowerCase() === 'live'
+      return content.duration.text?.toLowerCase() === 'live'
     })
 
     const isLive = (currentLiveStream ?? []).length > 0
