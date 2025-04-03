@@ -16,7 +16,7 @@
     "start-dev": "cross-env NODE_ENV=development tsx ./src/index.ts"
   },
   "dependencies": {
-    "@libsql/client": "^0.15.1",
+    "@libsql/client": "^0.15.2",
     "citty": "^0.1.6",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.41.0",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.14.0",
     "cross-env": "^7.0.3",
     "drizzle-kit": "^0.30.6",
     "prettier": "^3.5.3",
